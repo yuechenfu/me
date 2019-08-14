@@ -1,0 +1,208 @@
+package com.pib.property.manager;
+
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.pib.property.entity.Coordinate;
+import com.pib.property.entity.Property;
+import com.pib.property.exception.FailException;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.ssl.SSLContextBuilder;
+import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import javax.net.ssl.SSLContext;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Component
+public class ApiRevokeManager {
+
+   
+    @Value("${api.client.id}") 
+    private String clientId ;
+	
+	@Value("${api.client.secret}") 
+	private String clientSecret;
+	
+	@Value("${api.server.token}") 
+	private String serverToken;
+	
+	@Value("${api.brower.token}") 
+	private String browerToken;
+	
+	@Value("${api.root.url}") 
+	private String rootUrl;
+	
+	@Value("${api.dataset}") 
+	private String dataset;
+	
+	@Value("${api.maxRecordLimit}") 
+	private int maxRecordLimit;
+	
+	@Value("${api.pageLimit}") 
+	private int pageLimit;
+
+    public JsonObject parseJsonFromApi(String resultText) throws Exception {
+        JsonObject jsonObject = new Gson().fromJson(resultText, JsonObject.class);
+        JsonObject result = new JsonObject();
+        JsonElement data = jsonObject.get("value");
+        result.add("data", data);
+        result.addProperty("code", "SUCCESS");
+        result.addProperty("msg", "ok");
+        return result;
+    }
+    
+    public String getTextFromDefaultApi(String url, HttpServletRequest request, Map<String, String> requestParams) throws Exception {
+        RequestBuilder requestBuilder = RequestBuilder.get(constructApiUrl(url,requestParams,""));
+        setHeader(request, requestBuilder);
+        String result = requestCiscoApiTextByHttps(requestBuilder.build());
+        if (StringUtils.isEmpty(result)) {
+            throw new FailException("connection fail");
+        }
+        return result;
+    }
+
+
+    public String getTextFromApiFilterofZIP(String url, HttpServletRequest request, Map<String, String> requestParams) throws Exception {
+        RequestBuilder requestBuilder = RequestBuilder.get(constructApiUrl(url,requestParams,"ZIPCODE"));
+        setHeader(request, requestBuilder);
+        String result = requestCiscoApiTextByHttps(requestBuilder.build());
+        if (StringUtils.isEmpty(result)) {
+            throw new FailException("connection fail");
+        }
+        return result;
+    }
+    
+    public String getTextFromApiFilterofAddress(String url, HttpServletRequest request, Map<String, String> requestParams) throws Exception {
+        RequestBuilder requestBuilder = RequestBuilder.get(constructApiUrl(url,requestParams,"ADDRESS"));
+        setHeader(request, requestBuilder);
+        String result = requestCiscoApiTextByHttps(requestBuilder.build());
+        if (StringUtils.isEmpty(result)) {
+            throw new FailException("connection fail");
+        }
+        return result;
+    }
+
+    public String postTextFromApi(String url, HttpServletRequest request, String query) throws Exception {
+        RequestBuilder requestBuilder = RequestBuilder.post(rootUrl + dataset + url + "?access_token="+serverToken);
+        setHeader(request, requestBuilder);
+        HttpEntity httpEntity = new StringEntity(query);
+        requestBuilder.setEntity(httpEntity);
+        String result = requestCiscoApiTextByHttps(requestBuilder.build());
+        if (StringUtils.isEmpty(result)) {
+            throw new FailException("connection fail");
+        }
+        return result;
+    }
+    
+    public String constructApiUrl(String url, Map<String, String> requestParams,String type) {
+    	String rUrl ="",filter ="";
+    	if(type.equals("ADDRESS")) {
+    		if (requestParams !=null )  filter = "&$filter=contains(MlsStatus,'Active')%20and%20contains(tolower(UnparsedAddress),'"+requestParams.get("search")+"')";
+    	}else if (type.equals("ZIPCODE")) {
+    		if (requestParams !=null )  filter = "&$filter=contains(MlsStatus,'Active')%20and%20contains(PostalCode,'"+requestParams.get("search")+"')";
+    	}
+    	rUrl = rootUrl + dataset + url + "?access_token="+serverToken+filter+"&$top="+maxRecordLimit;
+    	return rUrl;
+    }
+
+    public void setHeader(HttpServletRequest request, RequestBuilder requestBuilder) {
+        Enumeration<?> enu = request.getHeaderNames();
+        while (enu.hasMoreElements()) {
+            String name = (String) enu.nextElement();
+            String value = request.getHeader(name);
+            if (value != null) {
+                requestBuilder.addHeader(name, value);
+            }
+
+        }
+    }
+
+    public String requestCiscoApiTextByHttps(HttpUriRequest httpUriRequest) throws IOException {
+        httpUriRequest.removeHeaders(HTTP.CONTENT_LEN);
+        String responseText = null;
+        CloseableHttpClient client = null;
+        CloseableHttpResponse response = null;
+        try {
+            SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null, (certificate, authType) -> true).build();
+            client = HttpClients.custom().setSSLContext(sslContext).setSSLHostnameVerifier(new NoopHostnameVerifier()).build();
+            response = client.execute(httpUriRequest);
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                responseText = EntityUtils.toString(entity);
+            }
+            EntityUtils.consume(entity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (response != null) response.close();
+                if (client != null) client.close();
+            } catch (IOException e) {
+            }
+        }
+        return responseText;
+    }
+    public Integer getPropertyListSize(String resultText) throws Exception {
+    	JsonObject jsonObject = new Gson().fromJson(resultText, JsonObject.class);
+        JsonElement value = jsonObject.get("value");
+        if (value == null) return 0;
+    	return value.getAsJsonArray().size();
+    }
+    public List<Property> getPropertyList(String resultText,int sumCount) throws Exception {
+    	int n =0;
+    	JsonObject singleMedia =null;
+    	String singleMediaUrl ="";
+    	List<Property> propertyList = new ArrayList(); 
+    	JsonObject jsonObject = new Gson().fromJson(resultText, JsonObject.class);
+        JsonElement value = jsonObject.get("value");
+        if (value == null) return null;
+        JsonArray dataArray =value.getAsJsonArray();
+        for (JsonElement jsonElement : dataArray) {
+        	JsonObject single = jsonElement.getAsJsonObject();
+        	JsonElement medias = single.get("Media");
+        	if  (!medias.isJsonNull()  ) {
+        		JsonArray mediaList =medias.getAsJsonArray();
+        		singleMedia = mediaList.get(0).getAsJsonObject();
+        		singleMediaUrl = singleMedia.get("MediaURL").getAsString() ;
+        	} 
+        	Property property = new Property.Builder().set("odataId", single.get("@odata.id").getAsString())
+        											  .set("price",single.get("ListPrice").getAsLong())
+        											  .set("bedRooms", single.get("BedroomsTotal").toString())
+        											  .set("bathRooms", single.get("BathroomsTotalDecimal").toString())
+        											  .set("livingArea", single.get("LivingArea").toString())
+        											  .set("address", single.get("UnparsedAddress").toString() )
+        											  .set("latitude", single.get("Latitude").toString()  )
+        											  .set("longitude", single.get("Longitude").toString()  )
+        											  .set("mediaURL", singleMediaUrl).build();  
+        	propertyList.add(property);
+        	n++;
+        	if (pageLimit < sumCount &&  pageLimit == n)  break;
+        }
+        return propertyList;
+    }
+
+    
+
+}
