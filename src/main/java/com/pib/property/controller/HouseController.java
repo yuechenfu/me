@@ -55,6 +55,8 @@ public class HouseController {
         if(propertyList != null) {
         	mode.addObject("propertyList", propertyList);
         	mode.addObject("searchCount",sumCount);
+        	mode.addObject("cLat",propertyList.get(0).getLatitude());
+        	mode.addObject("cLng",propertyList.get(0).getLongitude());
         }
         mode.addObject("searchText",search);
 		mode.setViewName("pages/main");

@@ -86,24 +86,21 @@ position: fixed;
 	      '(last visited June 22, 2009).</p>'+  
 	      '</div>'+  
 	      '</div>';  
+	      
+	      var singleProperty ='<table height=100px,width=300><tr><td>aaaaaaaaaaaaaaaaaaaa</td></tr></table>';
+	      
 	  
 		function initMap() {  
-			var vCenter ;
 			var LatLngList = new Array ();
-			<c:forEach items="${propertyList}" var="property">
-	    	vCenter = new google.maps.LatLng('${property.latitude}','${property.longitude}');
-	    	LatLngList.push(vCenter);
-	        </c:forEach>
-	    
 		    map = new google.maps.Map(document.getElementById('map'), {  
-		            zoom: 12,  
-		            center: vCenter, // set center  
+		            zoom: 14,  
+		            center: new google.maps.LatLng('${cLat}','${cLng}'), // set center  
 		            mapTypeId: google.maps.MapTypeId.ROADMAP // type : HYBRID,ROADMAP,SATELLITE,TERRAIN     
 		        });   
 		     
-		    var array = new Array();
 		    <c:forEach items="${propertyList}" var="property">
-		    	addSite(map,'${property.price}','${property.latitude}','${property.longitude}','${property.price}'); 
+		    	addSite(map,'${property.price}','${property.latitude}','${property.longitude}','${property.bedRooms }'+'bd '+'${property.bathRooms }'+'ba '+'${property.livingArea }'+'sqft'); 
+		    	LatLngList.push(new google.maps.LatLng('${property.latitude}','${property.longitude}'));
 		    </c:forEach>
 		     
 			//  Create a new viewpoint bound  
@@ -117,21 +114,23 @@ position: fixed;
 			map.fitBounds (bounds);  
 		}  
 
-		function addSite(map, siteDesc, lat, lng, address) {  
+		function addSite(map, price, lat, lng, homeType) {  
 		    var pt = new google.maps.LatLng(lat,lng);  
 		    var marker = new google.maps.Marker({  
 		                map: map,  
 		                position : pt,   
-		                title: siteDesc  
+		                title: '$'+price+', '+homeType 
 		                });  
 		    var infowindow = new google.maps.InfoWindow({  
-		        content: contentString  
+		        content: singleProperty  
 		    });  
 		  
 		    google.maps.event.addListener(marker, 'click', function() {  
 		        if (prev_infowindow != null) prev_infowindow.close();  
 		        prev_infowindow = infowindow;  
 		        infowindow.open(map, marker);  
+		        //window.open('../pages/detail.jsp','newwindow','width=1000,height=900')
+		        //openWindow("/search", "gatherWin", null, null, 1);
 		    });       
 
        }  

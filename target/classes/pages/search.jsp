@@ -16,12 +16,12 @@
 <nav class="navbar navbar-expand-sm bg-light">
   <!-- Links -->
   <ul class="navbar-nav">
-  <form class="form-inline" action="/action_page.php">
+  <form class="form-inline" action="/property/house/search">
     <li class="nav-item">
      <div class="input-group">
       <div class="input-icon-group">
         <div class="input-group" style="width:100%">
-           <input type="text" class="form-control" placeholder=""  data-clearbtn="true">
+           <input type="text" class="form-control" id="search" name="search" value="${searchText}" data-clearbtn="true">
                <span class="input-group-addon"><i class="md md-center-focus-weak fa-lg"> </i></span> 
            </input>
         </div>

@@ -23,7 +23,7 @@
        
     </ul>
       
-    <a class="nav-link" href="#">Sign in</a>
+    <a class="nav-link" href="#">Sign in or Join</a>
     <a class="nav-link" href="#">Help</a>
   </div>
   <div>
