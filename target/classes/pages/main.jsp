@@ -8,12 +8,9 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script> 
 <style type="text/css">
 position: fixed;
-}
-
-
 * {
   box-sizing: border-box;
-}
+ }
 
 /* Create two equal columns that floats next to each other */
 .column {
@@ -35,7 +32,6 @@ position: fixed;
 </head>
 <body>
 <header><%@include file="search.jsp"%></header>
- 
     <section class="flexModal fixedLeft" id="bpayon">
       <nav> 
        <div id="map" ></div>
@@ -50,7 +46,9 @@ position: fixed;
 		   </c:if>
 			<td>
 			    <div>
-                    <a href="" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
+			    <a href="">
+                    <a  href = "#" onclick='javascript:detailWindow(${property.mlsStatus},"$${property.price}",${property.bedRooms}+"bd "+${property.bathRooms }+"ba ",${property.livingArea}+"sqft",${property.address},"${property.mediaURL}","${property.mediaURLList}");' 
+                         class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
                         <img width="350" height="200" src="${property.mediaURL}" class="primary_image" alt="" />
                     </a>
                     <div >
@@ -62,7 +60,7 @@ position: fixed;
 			</td>
 		  <c:if test="${status.index%2!=0}">
 			</tr>
-			</c:if>
+		  </c:if>
         </c:forEach>
         
         <tr>
@@ -96,7 +94,7 @@ position: fixed;
 		        });   
 		     
 		    <c:forEach items="${propertyList}" var="property">
-		    	addSite(map,'$${property.price}','${property.latitude}','${property.longitude}','${property.bedRooms}'+'bd '+'${property.bathRooms}'+'ba','${property.livingArea}'+'sqft','${property.address}','${property.mediaURL}','${property.mediaURLList}'); 
+		    	addSite(map,'${property.mlsStatus}','$${property.price}','${property.latitude}','${property.longitude}','${property.bedRooms}'+'bd '+'${property.bathRooms}'+'ba','${property.livingArea}'+'sqft','${property.address}','${property.mediaURL}','${property.mediaURLList}'); 
 		    	LatLngList.push(new google.maps.LatLng('${property.latitude}','${property.longitude}'));
 		    </c:forEach>
 		     
@@ -111,7 +109,7 @@ position: fixed;
 			map.fitBounds (bounds);  
 		}  
 
-		function addSite(map, price, lat, lng,room,area ,address,image,imagelist) {  
+		function addSite(map, mlsStatus,price, lat, lng,room,area ,address,image,imagelist) {  
 		    var pt = new google.maps.LatLng(lat,lng);  
 		    var marker = new google.maps.Marker({  
 		                map: map,  
@@ -134,14 +132,14 @@ position: fixed;
 		        infowindow.open(map, marker);  
 		    });   
 		    google.maps.event.addListener(marker, 'click', function() {  
-		    	detailWindow(image,imagelist);
+		    	detailWindow(mlsStatus,price,room,area,address,image,imagelist);
                 return false;
 		         
 		    });   
 
-       }  
-		
-		function detailWindow(image,imagelist){
+       } 
+		function detailWindow(mlsStatus,price,room,area,address,image,imagelist){
+			var myArray=strToArray(imagelist); 
 		    var sWidth=document.body.scrollWidth;
 		    var sHeight=document.body.scrollHeight;
 		    var wHeight=document.documentElement.clientHeight;
@@ -157,18 +155,30 @@ position: fixed;
 		    	vHtml =vHtml + "<div class='row'>";
 		    	vHtml =vHtml +     "<div class='column'>";
 		    	vHtml =vHtml +        "<p align='center'><img src="+image+" width='100%' height='500px'/></p>";
-		    	//for(j = 0,len=myArray.length; j < len; j++) {
-		    		//vHtml =vHtml +        "<p align='center'><img src="+myArray[j]+" width='100%' height='500px'/></p>";
-		    	//}
+		    	for(j = 0,len=myArray.length; j < len; j++) {
+		    		if (j % 2 ==0){
+		    			vHtml =vHtml + "<p>";
+		    		}
+		    		vHtml =vHtml + "<span><img src="+myArray[j]+" width='50%' height='200px'/></span>";
+		    		if (j % 2 !=0){
+		    			vHtml =vHtml +"</p>";
+		    		}
+		    	}
 		    	vHtml =vHtml +     "</div>";
 		    	vHtml =vHtml +     "<div class='column'>";
-		    	vHtml =vHtml +       "<p>Some text2</p>";
+		    	vHtml =vHtml +       "<p><img  src='../images/logo.jpg' width='60px' height='50px'><span  style='padding-left:300px;'><a href='#'>Save</a></span><span style='padding-left:30px;'><a href='#'>Share</a></span><span style='padding-left:30px;'><a href='#'>More...</a></span></p>";
+		    	vHtml =vHtml +     "<hr>";
+		    	vHtml =vHtml +     "<p><span style='font-size:20px'>"+price +"</span><span  style='padding-left:40px;'>"+room +", </span><span  style='padding-left:40px;'>"+area +"</span></p>";
+		    	vHtml =vHtml +     "<p><span>"+address +"</span></p>";
+		    	vHtml =vHtml +     "<p><span>"+mlsStatus +"</span></p>";
+		    	vHtml =vHtml +     "<p align='right'><span style='padding-right:40px'><button type='button' style='background-color: #e7e7e7;color:blue' >ContactAgent</button></span><span style='padding-right:40px'><button type='button' style='background-color: #008CBA;color: white;'>Take a Tour</button></span></p>";
+		    	vHtml =vHtml +     "<hr>";
+		    	vHtml =vHtml +     "<p><span style='font-size:20px'>Overview</span></p>";
+		    	vHtml =vHtml +     "<p><span style='font-size:15px'>Something...</span></p>";
+		    	vHtml =vHtml +     "<hr>";
 		    	vHtml =vHtml +     "</div>";
 		    	vHtml =vHtml + "</div></div>";
 		    	
-		    		   
-		    	
-		    
 		    	oDetail.innerHTML=vHtml; 
 		        document.body.appendChild(oDetail);
 
@@ -183,6 +193,12 @@ position: fixed;
 		                    document.body.removeChild(oMask);
 		       };
 		  };
+		  
+		  function strToArray(str){
+			  var vStr = str.replace(/\[|]/g,'');
+			  var list = vStr.split(",");
+			  return list;
+		  }
 	</script>
 
     <script src="../js/markerclusterer.js"></script>

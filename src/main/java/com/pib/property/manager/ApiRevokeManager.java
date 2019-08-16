@@ -192,7 +192,6 @@ public class ApiRevokeManager {
         		singleMediaUrl = mediaList.get(0).getAsJsonObject().get("MediaURL").getAsString() ;
         		
         	} 
-        	
         	Property property = new Property.Builder().set("odataId", single.get("@odata.id").getAsString())
         											  .set("price",single.get("ListPrice").getAsLong())
         											  .set("bedRooms", single.get("BedroomsTotal").toString())
@@ -202,6 +201,7 @@ public class ApiRevokeManager {
         											  .set("latitude", single.get("Latitude").toString()  )
         											  .set("longitude", single.get("Longitude").toString()  )
         											  .set("mediaURL", singleMediaUrl)
+        											  .set("mlsStatus", single.get("MlsStatus").toString())
         											  .set("mediaURLList", vMediaList).build();  
         	propertyList.add(property);
         	n++;

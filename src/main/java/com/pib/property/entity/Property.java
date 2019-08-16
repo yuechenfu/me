@@ -32,6 +32,10 @@ public class Property {
 	
 	private String latitude;
 	
+	private String mlsStatus;
+	
+	private String vDirections;
+	
 	
 	public static final Null NULL = new Null();
 
@@ -70,6 +74,15 @@ public class Property {
 
  
 
+ 
+
+	public String getvDirections() {
+		return vDirections;
+	}
+
+	public void setvDirections(String vDirections) {
+		this.vDirections = vDirections;
+	}
 
 	public ArrayList getMediaURLList() {
 		return mediaURLList;
@@ -134,6 +147,18 @@ public class Property {
 	public void setLotSizeSquareFeet(String lotSizeSquareFeet) {
 		this.lotSizeSquareFeet = lotSizeSquareFeet;
 	}
+	
+	
+
+	public String getMlsStatus() {
+		return mlsStatus;
+	}
+
+	public void setMlsStatus(String mlsStatus) {
+		this.mlsStatus = mlsStatus;
+	}
+
+
 
 	private static class Null extends Property implements NullObject { 
     }

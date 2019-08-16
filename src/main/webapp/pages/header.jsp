@@ -20,7 +20,7 @@
     </ul>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-       <a href="home"> <img alt="logo" src="../images/logo.jpg" width="60px" height="50px"></a>
+       <a href="index"> <img alt="logo" src="../images/logo.jpg" width="60px" height="50px"></a>
       </li>
        
     </ul>

@@ -23,11 +23,11 @@ public class HouseController {
 	@Autowired
     private ApiRevokeManager apiRevokeManager;
 	
-	@GetMapping(value="/home")
+	@GetMapping(value="/index")
 	@ResponseBody
 	public ModelAndView home(){
 		ModelAndView mode = new ModelAndView();
-		mode.setViewName("pages/home");
+		mode.setViewName("pages/index");
 		return mode;
 	}
     
