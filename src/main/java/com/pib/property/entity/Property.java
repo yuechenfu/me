@@ -1,5 +1,6 @@
 package com.pib.property.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.pib.nullhandler.NullObject;
@@ -12,6 +13,8 @@ public class Property {
 	private long   price;
 	
 	private String mediaURL;
+	
+	private ArrayList mediaURLList ;
 	
 	private int count;
 	
@@ -67,7 +70,14 @@ public class Property {
 
  
 
-	 
+
+	public ArrayList getMediaURLList() {
+		return mediaURLList;
+	}
+
+	public void setMediaURLList(ArrayList mediaURLList) {
+		this.mediaURLList = mediaURLList;
+	}
 
 	public String getLivingArea() {
 		return livingArea;
@@ -125,14 +135,6 @@ public class Property {
 		this.lotSizeSquareFeet = lotSizeSquareFeet;
 	}
 
-
-
-
-
-
-
-
-
 	private static class Null extends Property implements NullObject { 
     }
     public static class Builder extends AbstractBuilder {
@@ -147,9 +149,11 @@ public class Property {
     }
 	@Override
 	public String toString() {
-		return "Property [odataId=" + odataId + ", price=" + price + ", mediaURL=" + mediaURL + ", count=" + count
-				+ "]";
+		return "Property [odataId=" + odataId + ", price=" + price + ", mediaURL=" + mediaURL + ", mediaURLList="
+				+ mediaURLList + ", count=" + count + ", bedRooms=" + bedRooms + ", bathRooms=" + bathRooms
+				+ ", livingArea=" + livingArea + ", lotSizeSquareFeet=" + lotSizeSquareFeet + ", address=" + address
+				+ ", longitude=" + longitude + ", latitude=" + latitude + "]";
 	}
-    
+	 
     
 }

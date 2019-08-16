@@ -1,0 +1,33 @@
+#close{ 
+    width:25px; 
+    height:25px; 
+    cursor:pointer; 
+    position:absolute; 
+    right:5px; 
+    top:5px; 
+    text-indent:-999em;
+    background-color:#ffffff;
+    background:url(../images/close.png) #2A2C2E center center no-repeat;
+    }
+#mask{ 
+    background-color:gray;
+    opacity:0.5;
+    filter: alpha(opacity=50); 
+    position:absolute; 
+    left:0;
+    top:0;
+    z-index:1;
+    }
+#single{ 
+    position:fixed;
+    z-index:2;
+    }
+.singleCon{ 
+	overflow-y: scroll; 
+	overflow-x:hidden;
+    position:relative; 
+    width:1200px;
+    height:790px;
+    /*background:url(img/loginBg.png) #2A2C2E center center no-repeat;*/
+    background-color: #ffffff; 
+}

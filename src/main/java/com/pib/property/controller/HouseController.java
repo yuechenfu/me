@@ -52,6 +52,7 @@ public class HouseController {
         }
         int sumCount = apiRevokeManager.getPropertyListSize(resultText) ;
         propertyList =apiRevokeManager.getPropertyList(resultText,sumCount);
+        System.out.println("ffffffffffffffffff="+propertyList.toString());
         if(propertyList != null) {
         	mode.addObject("propertyList", propertyList);
         	mode.addObject("searchCount",sumCount);
