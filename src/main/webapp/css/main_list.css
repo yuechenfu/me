@@ -1,62 +1,35 @@
-body,ul,li{
-  /* position: relative; */
-  margin: 0;
-  padding: 0;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  list-style: none;
+html,body{
+height:100%;
+margin:0;
+padding:0;
+overflow-y:hidden;
 }
-header,footer{
-  position: fixed;
-  z-index: 9;
+.header {
+  margin: 0 auto;
   width: 100%;
-  height: 100px;
-}
-nav li{
-	padding :10px;
-}    
-footer{
-  bottom: 0;
-}
-section{ 
-  padding: 190px 0;
-}
-
-article{
-  font-size: 20px;
-  text-align: center;
-  
-
-}
-
-section.default article{
-  padding-left: 1100px;
-}
-/* flexModal */
-section.flexModal{
-  display: flex;
-}
-section.flexModal nav{
-  width: 1100px;
-}
-section.flexModal article{
-  flex: 1;
-}
- 
-/* fixedLeft */
-section.fixedLeft nav{	
+  height: 150px;
   position: fixed;
-  top: 100px;
-  bottom: 0px;
+  top: 0;
+  background: #ffffff;
+  z-index:1;
 }
-section.fixedLeft article{
-  margin-left: 1100px; 
-}
-#map { 
-	  width: 1100px;
-	  height: 900px;
-	  float: left;
-	  align:center;
-} 
-#pageset{
-  bottom: 10px;
-}
+
+#map{
+    height:100%;
+    top: 150px;
+    overflow: auto;
+    position:relative
+    margin-right:700px;
+    background-color:blue;
+    z-index:0;
+ }
+#prolist{
+    width:700px;
+    height:100%;
+    top: 150px;
+    overflow: auto;
+    background-color:#ffffff;
+    position:absolute;
+    right:0;
+    overflow-y:scroll;
+    z-index:0;

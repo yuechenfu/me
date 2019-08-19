@@ -17,18 +17,19 @@
     position:absolute; 
     left:0;
     top:0;
-    z-index:1;
+    z-index:2;
     }
 #single{ 
     position:fixed;
-    z-index:2;
+    z-index:3;
     }
 .singleCon{ 
+	top :10px;
 	overflow-y: scroll; 
 	overflow-x:hidden;
     position:relative; 
-    width:1200px;
-    height:790px;
+    width:1300px;
+    height: calc(100vh - 2px);     
     /*background:url(img/loginBg.png) #2A2C2E center center no-repeat;*/
     background-color: #ffffff; 
 }

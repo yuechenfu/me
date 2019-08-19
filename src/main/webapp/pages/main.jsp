@@ -2,44 +2,38 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-<head> 
-<link rel='stylesheet' id='main-css' href='../css/main_list.css' type='text/css' media='all' />
-<link rel='stylesheet' id='main-css' href='../css/pop_detail.css' type='text/css' media='all' />
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script> 
-<style type="text/css">
-position: fixed;
-* {
-  box-sizing: border-box;
- }
-
-/* Create two equal columns that floats next to each other */
+<head>
+ <title>Property</title>
+ <meta name="viewport" content="initial-scale=1.0">
+ <meta charset="utf-8">
+ <link rel='stylesheet' id='main-css' href='../css/main_list.css' type='text/css' media='all' />
+ <link rel='stylesheet' id='main-css' href='../css/pop_detail.css' type='text/css' media='all' />
+ <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script> 
+<style>
+ /* Create two equal columns that floats next to each other */
 .column {
   overflow-y: scroll; 
   overflow-x:hidden;
   padding:2px;
   float: left;
   width: 50%;
-  height: 780px; /* Should be removed. Only for demonstration */
+  height: calc(100vh - 4px); 
 }
-
 /* Clear floats after the columns */
 .row:after {
   content: "";
   display: table;
   clear: both;
-}
+}   
 </style>
 </head>
-<body>
-<header><%@include file="search.jsp"%></header>
-    <section class="flexModal fixedLeft" id="bpayon">
-      <nav> 
-       <div id="map" ></div>
-      </nav>
-      <article>
-       <table border="1" align="center">
-       <p align="left"  style="padding-left:40px;">${searchText} Real Estate & Homes For Sale</p>
-       <p align="left"  style="padding-left:40px;">${searchCount } results</p>
+  <body>
+    <div class="header"><%@include file="search.jsp"%></div>
+       <div id="map"></div>
+	   <div id="prolist">
+	     <table border="1" align="center">
+       <p align="left"  style="padding-left:20px;">${searchText} Real Estate & Homes For Sale</p>
+       <p align="left"  style="padding-left:20px;">${searchCount } results</p>
         <c:forEach var="property" items="${propertyList}" varStatus="status">
            <c:if test="${status.index%2==0}">
 			<tr>
@@ -75,16 +69,10 @@ position: fixed;
         </td>
         <tr>
         </table>
-        
-      </article>
-      
-    </section> 
-    
-     
+	   </div>
     <script type="text/javascript">  
 		var map = null;  
 		var prev_infowindow = null;  
-
 		function initMap() {  
 			var LatLngList = new Array ();
 		    map = new google.maps.Map(document.getElementById('map'), {  
@@ -97,7 +85,6 @@ position: fixed;
 		    	addSite(map,'${property.mlsStatus}','$${property.price}','${property.latitude}','${property.longitude}','${property.bedRooms}'+'bd '+'${property.bathRooms}'+'ba','${property.livingArea}'+'sqft','${property.address}','${property.mediaURL}','${property.mediaURLList}'); 
 		    	LatLngList.push(new google.maps.LatLng('${property.latitude}','${property.longitude}'));
 		    </c:forEach>
-		     
 			//  Create a new viewpoint bound  
 			var bounds = new google.maps.LatLngBounds ();  
 			//  Go through each...  
@@ -186,7 +173,8 @@ position: fixed;
 		    var dWidth=oDetail.offsetWidth;
 		        //left和bottom
 		        oDetail.style.left=(sWidth/2 - dWidth/2)+"px";
-		        oDetail.style.bottom="1px";
+		        oDetail.style.bottom="2px";
+		       
 		    var oClose=document.getElementById("close");
 		        oClose.onclick=oMask.onclick=function(){
 		                    document.body.removeChild(oDetail);
@@ -200,10 +188,9 @@ position: fixed;
 			  return list;
 		  }
 	</script>
-
-    <script src="../js/markerclusterer.js"></script>
-    <script async defer
+ <script src="../js/markerclusterer.js"></script>
+<script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuMhCNOD0HtouNQ_rm9igVmd3LD1Z1a-8&callback=initMap">
-    </script>
-    </body>
-  </html>
+</script>
+</body>
+</html>
