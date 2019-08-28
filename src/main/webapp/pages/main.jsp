@@ -56,20 +56,19 @@
 			</tr>
 		  </c:if>
         </c:forEach>
-        
-        <tr>
-        <td colspan=2>
-        <p class="paging">
+        </table>
+        <div>
+         <hr>
+         <p class="paging">
                             <a href="Staff_ListServlet?page=${paging.indexpage-1}">&lt;&lt; first </a>
                             <a href="Staff_ListServlet?page=${paging.page-1 }">    &lt; last </a>
                             <strong>${paging.page+1}/total ${paging.pagenumber}</strong>
                             <a href="Staff_ListServlet?page=${paging.page+1}">next &gt;</a>
                             <a href="Staff_ListServlet?page=${paging.pagenumber-1}">end &gt;&gt;</a>
         </p>
-        </td>
-        <tr>
-        </table>
+        </div>
 	   </div>
+	   <div class="footer"></div>
     <script type="text/javascript">  
 		var map = null;  
 		var prev_infowindow = null;  
@@ -85,6 +84,8 @@
 		    	addSite(map,'${property.mlsStatus}','$${property.price}','${property.latitude}','${property.longitude}','${property.bedRooms}'+'bd '+'${property.bathRooms}'+'ba','${property.livingArea}'+'sqft','${property.address}','${property.mediaURL}','${property.mediaURLList}'); 
 		    	LatLngList.push(new google.maps.LatLng('${property.latitude}','${property.longitude}'));
 		    </c:forEach>
+		     
+		    
 			//  Create a new viewpoint bound  
 			var bounds = new google.maps.LatLngBounds ();  
 			//  Go through each...  
@@ -94,7 +95,36 @@
 			}  
 			//  Fit these bounds to the map  
 			map.fitBounds (bounds);  
+			
+			setArea(map,LatLngList);
 		}  
+		
+		
+		function setArea(map,LatLngList){
+			alert(LatLngList);
+			
+			// Define the LatLng coordinates for the polygon's path.
+	       <!--
+			var triangleCoords = [
+	          {lat: 25.774, lng: -80.190},
+	          {lat: 18.466, lng: -66.118},
+	          {lat: 32.321, lng: -64.757},
+	          {lat: 25.774, lng: -80.190}
+	        ];
+           -->
+           
+           var triangleCoords = LatLngList;
+	        // Construct the polygon.
+	        var bermudaTriangle = new google.maps.Polygon({
+	          paths: triangleCoords,
+	          strokeColor: '#FF0000',
+	          strokeOpacity: 0.8,
+	          strokeWeight: 2,
+	          fillColor: '#FF0000',
+	          fillOpacity: 0.35
+	        });
+	        bermudaTriangle.setMap(map);
+		}
 
 		function addSite(map, mlsStatus,price, lat, lng,room,area ,address,image,imagelist) {  
 		    var pt = new google.maps.LatLng(lat,lng);  

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 /**
 * 時間函式類
@@ -161,5 +162,22 @@ public class DateUtil {
 			return false;
 		}
 		return true;
+	}
+	/**
+	 * 获取当前时间秒计算的时间戳
+	 * @param date
+	 * @return
+	 */
+	public static int getSecondTimestampTwo(Date date){
+        if (null == date) {
+            return 0;
+        }
+        String timestamp = String.valueOf(date.getTime()/1000);
+        return Integer.valueOf(timestamp);
+    } 
+	public static void main(String args[]) {
+		Date time = new Date();
+        int t =DateUtil.getSecondTimestampTwo(time);
+        System.out.println(t);
 	}
 }

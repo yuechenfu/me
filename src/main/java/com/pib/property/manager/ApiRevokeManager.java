@@ -5,63 +5,79 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.pib.property.entity.Coordinate;
 import com.pib.property.entity.Property;
 import com.pib.property.exception.FailException;
+import com.pib.util.DateUtil;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.net.ssl.SSLContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.http.HttpClient;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Component
 public class ApiRevokeManager {
 
-   
-    @Value("${api.client.id}") 
-    private String clientId ;
-	
-	@Value("${api.client.secret}") 
-	private String clientSecret;
-	
-	@Value("${api.server.token}") 
-	private String serverToken;
-	
-	@Value("${api.brower.token}") 
-	private String browerToken;
 	
 	@Value("${api.root.url}") 
 	private String rootUrl;
-	
-	@Value("${api.dataset}") 
-	private String dataset;
 	
 	@Value("${api.maxRecordLimit}") 
 	private int maxRecordLimit;
 	
 	@Value("${api.pageLimit}") 
 	private int pageLimit;
+	
+	@Autowired
+	ApiCredentialsManager apiCredentialsManager;
+	
+
+    
+    
+    public String getTextFromApi(HttpServletRequest request,String resource,Map<String, String> requestParams) throws Exception {
+    	RequestBuilder requestBuilder = RequestBuilder.get(constructApiUrl(resource,requestParams));
+    	String token = apiCredentialsManager.getBearerAccessToken(request);
+    	System.out.println("token="+token);
+    	requestBuilder.addHeader("Authorization", "Bearer "+token);
+        String result = requestCrmlsApiTextByHttps(requestBuilder.build());
+        if (StringUtils.isEmpty(result)) {
+            throw new FailException("connection fail");
+        }
+        return result;
+    }
+
+
 
     public JsonObject parseJsonFromApi(String resultText) throws Exception {
         JsonObject jsonObject = new Gson().fromJson(resultText, JsonObject.class);
@@ -72,58 +88,20 @@ public class ApiRevokeManager {
         result.addProperty("msg", "ok");
         return result;
     }
-    
-    public String getTextFromDefaultApi(String url, HttpServletRequest request, Map<String, String> requestParams) throws Exception {
-        RequestBuilder requestBuilder = RequestBuilder.get(constructApiUrl(url,requestParams,""));
-        setHeader(request, requestBuilder);
-        String result = requestCiscoApiTextByHttps(requestBuilder.build());
-        if (StringUtils.isEmpty(result)) {
-            throw new FailException("connection fail");
-        }
-        return result;
-    }
-
-
-    public String getTextFromApiFilterofZIP(String url, HttpServletRequest request, Map<String, String> requestParams) throws Exception {
-        RequestBuilder requestBuilder = RequestBuilder.get(constructApiUrl(url,requestParams,"ZIPCODE"));
-        setHeader(request, requestBuilder);
-        String result = requestCiscoApiTextByHttps(requestBuilder.build());
-        if (StringUtils.isEmpty(result)) {
-            throw new FailException("connection fail");
-        }
-        return result;
-    }
-    
-    public String getTextFromApiFilterofAddress(String url, HttpServletRequest request, Map<String, String> requestParams) throws Exception {
-        RequestBuilder requestBuilder = RequestBuilder.get(constructApiUrl(url,requestParams,"ADDRESS"));
-        setHeader(request, requestBuilder);
-        String result = requestCiscoApiTextByHttps(requestBuilder.build());
-        if (StringUtils.isEmpty(result)) {
-            throw new FailException("connection fail");
-        }
-        return result;
-    }
-
     public String postTextFromApi(String url, HttpServletRequest request, String query) throws Exception {
-        RequestBuilder requestBuilder = RequestBuilder.post(rootUrl + dataset + url + "?access_token="+serverToken);
+        RequestBuilder requestBuilder = RequestBuilder.post(rootUrl +  url );
         setHeader(request, requestBuilder);
         HttpEntity httpEntity = new StringEntity(query);
         requestBuilder.setEntity(httpEntity);
-        String result = requestCiscoApiTextByHttps(requestBuilder.build());
+        String result = requestCrmlsApiTextByHttps(requestBuilder.build());
         if (StringUtils.isEmpty(result)) {
             throw new FailException("connection fail");
         }
         return result;
     }
     
-    public String constructApiUrl(String url, Map<String, String> requestParams,String type) {
-    	String rUrl ="",filter ="";
-    	if(type.equals("ADDRESS")) {
-    		if (requestParams !=null )  filter = "&$filter=contains(MlsStatus,'Active')%20and%20contains(tolower(UnparsedAddress),'"+requestParams.get("search")+"')";
-    	}else if (type.equals("ZIPCODE")) {
-    		if (requestParams !=null )  filter = "&$filter=contains(MlsStatus,'Active')%20and%20contains(PostalCode,'"+requestParams.get("search")+"')";
-    	}
-    	rUrl = rootUrl + dataset + url + "?access_token="+serverToken+filter+"&$top="+maxRecordLimit;
+    public String constructApiUrl(String resource, Map<String, String> requestParams) throws Exception {
+    	String rUrl = rootUrl + resource ;
     	return rUrl;
     }
 
@@ -139,7 +117,7 @@ public class ApiRevokeManager {
         }
     }
 
-    public String requestCiscoApiTextByHttps(HttpUriRequest httpUriRequest) throws IOException {
+    public String requestCrmlsApiTextByHttps(HttpUriRequest httpUriRequest) throws IOException {
         httpUriRequest.removeHeaders(HTTP.CONTENT_LEN);
         String responseText = null;
         CloseableHttpClient client = null;
