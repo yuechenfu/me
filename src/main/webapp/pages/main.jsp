@@ -41,13 +41,13 @@
 			<td>
 			    <div>
 			    <a href="">
-                    <a  href = "#" onclick='javascript:detailWindow(${property.mlsStatus},"$${property.price}",${property.bedRooms}+"bd "+${property.bathRooms }+"ba ",${property.livingArea}+"sqft",${property.address},"${property.mediaURL}","${property.mediaURLList}");' 
+                    <a  href = "#" onclick='javascript:detailWindow(${property.mlsStatus},"$${property.listPrice}",${property.bedroomsTotal}+"bd "+${property.bathroomsFull }+"ba ",${property.livingArea}+"sqft",${property.address},"${property.mediaURL}","${property.mediaURLList}");' 
                          class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
                         <img width="350" height="200" src="${property.mediaURL}" class="primary_image" alt="" />
                     </a>
                     <div >
-                      <span style="font-style:Courier New;font-size:20px;">$${property.price }</span>
-                      <span style="font-style:Courier New;font-size:15px;">${property.bedRooms } bds | ${property.bathRooms } ba | ${property.livingArea } sqft</span>
+                      <span style="font-style:Courier New;font-size:20px;">$${property.listPrice }</span>
+                      <span style="font-style:Courier New;font-size:15px;">${property.bedroomsTotal } bds | ${property.bathroomsFull } ba | ${property.livingArea } sqft</span>
                       <p style="font-style:Courier New;font-size:15px;">${property.address }</p>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
 		        });   
 		     
 		    <c:forEach items="${propertyList}" var="property">
-		    	addSite(map,'${property.mlsStatus}','$${property.price}','${property.latitude}','${property.longitude}','${property.bedRooms}'+'bd '+'${property.bathRooms}'+'ba','${property.livingArea}'+'sqft','${property.address}','${property.mediaURL}','${property.mediaURLList}'); 
+		    	addSite(map,'${property.mlsStatus}','$${property.listPrice}','${property.latitude}','${property.longitude}','${property.bedroomsTotal}'+'bd '+'${property.bathroomsFull}'+'ba','${property.livingArea}'+'sqft','${property.address}','${property.mediaURL}','${property.mediaURLList}'); 
 		    	LatLngList.push(new google.maps.LatLng('${property.latitude}','${property.longitude}'));
 		    </c:forEach>
 		     

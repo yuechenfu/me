@@ -85,9 +85,7 @@ public class ApiCredentialsManager {
     }
 	public boolean isExpired(JsonObject json) {
 		int currentSecond = DateUtil.getSecondTimestampTwo(new Date());
-		int SessionSecond = json.get("expires_in").getAsInt();
-		System.out.println("currentSecond="+currentSecond+",SessionSecond="+SessionSecond);
-		
+		int SessionSecond = json.get("expires_in").getAsInt(); 
 		if( currentSecond < SessionSecond) return false;
 		return true;
 	}

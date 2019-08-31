@@ -56,29 +56,50 @@ public class ApiRevokeManager {
 	@Value("${api.maxRecordLimit}") 
 	private int maxRecordLimit;
 	
-	@Value("${api.pageLimit}") 
-	private int pageLimit;
+	
 	
 	@Autowired
 	ApiCredentialsManager apiCredentialsManager;
 	
-
-    
-    
     public String getTextFromApi(HttpServletRequest request,String resource,Map<String, String> requestParams) throws Exception {
-    	RequestBuilder requestBuilder = RequestBuilder.get(constructApiUrl(resource,requestParams));
+    	RequestBuilder requestBuilder = RequestBuilder.get(constructApiUrl(resource));
     	String token = apiCredentialsManager.getBearerAccessToken(request);
-    	System.out.println("token="+token);
     	requestBuilder.addHeader("Authorization", "Bearer "+token);
+    	if (requestParams != null && !requestParams.isEmpty()) {
+            requestParams.keySet().stream().forEach(paramName -> {
+                Object paramValue = requestParams.get(paramName);
+                requestBuilder.addParameter(paramName, String.valueOf(paramValue));
+            });
+        }
         String result = requestCrmlsApiTextByHttps(requestBuilder.build());
         if (StringUtils.isEmpty(result)) {
             throw new FailException("connection fail");
         }
         return result;
     }
-
-
-
+  
+    public String getTextFromApiByPostalCode(HttpServletRequest request,String resource,Map<String, String> requestParams) throws Exception {
+    	RequestBuilder requestBuilder = RequestBuilder.get(constructApiUrl(resource));
+    	String token = apiCredentialsManager.getBearerAccessToken(request);
+    	requestBuilder.addHeader("Authorization", "Bearer "+token);
+    	if (requestParams != null && !requestParams.isEmpty()) {
+            requestParams.keySet().stream().forEach(paramName -> {
+                Object paramValue = requestParams.get(paramName);
+                requestBuilder.addParameter(paramName, String.valueOf(paramValue));
+            });
+        }
+        String result = requestCrmlsApiTextByHttps(requestBuilder.build());
+        if (StringUtils.isEmpty(result)) {
+            throw new FailException("connection fail");
+        }
+        System.out.println("requestBuilder.build()="+requestBuilder.build());
+        return result;
+    }
+    
+    public String constructApiUrl(String resource) throws Exception {
+    	String rUrl = rootUrl + resource ;
+    	return rUrl;
+    }
     public JsonObject parseJsonFromApi(String resultText) throws Exception {
         JsonObject jsonObject = new Gson().fromJson(resultText, JsonObject.class);
         JsonObject result = new JsonObject();
@@ -100,10 +121,7 @@ public class ApiRevokeManager {
         return result;
     }
     
-    public String constructApiUrl(String resource, Map<String, String> requestParams) throws Exception {
-    	String rUrl = rootUrl + resource ;
-    	return rUrl;
-    }
+    
 
     public void setHeader(HttpServletRequest request, RequestBuilder requestBuilder) {
         Enumeration<?> enu = request.getHeaderNames();
@@ -142,51 +160,7 @@ public class ApiRevokeManager {
         }
         return responseText;
     }
-    public Integer getPropertyListSize(String resultText) throws Exception {
-    	JsonObject jsonObject = new Gson().fromJson(resultText, JsonObject.class);
-        JsonElement value = jsonObject.get("value");
-        if (value == null) return 0;
-    	return value.getAsJsonArray().size();
-    }
-    public List<Property> getPropertyList(String resultText,int sumCount) throws Exception {
-    	int n =0;
-    	String singleMediaUrl ="";
-    	List<Property> propertyList = new ArrayList(); 
-    	
-    	JsonObject jsonObject = new Gson().fromJson(resultText, JsonObject.class);
-        JsonElement value = jsonObject.get("value");
-        if (value == null) return null;
-        JsonArray dataArray =value.getAsJsonArray();
-        for (JsonElement jsonElement : dataArray) {
-        	JsonObject single = jsonElement.getAsJsonObject();
-        	JsonElement medias = single.get("Media");
-        	List vMediaList = new ArrayList();
-        	if  (!medias.isJsonNull()  ) {
-        		JsonArray mediaList =medias.getAsJsonArray();
-        		for (JsonElement mdElement : mediaList) {
-        			JsonObject media = mdElement.getAsJsonObject();
-        			vMediaList.add(media.get("MediaURL").getAsString());
-        		} 
-        		singleMediaUrl = mediaList.get(0).getAsJsonObject().get("MediaURL").getAsString() ;
-        		
-        	} 
-        	Property property = new Property.Builder().set("odataId", single.get("@odata.id").getAsString())
-        											  .set("price",single.get("ListPrice").getAsLong())
-        											  .set("bedRooms", single.get("BedroomsTotal").toString())
-        											  .set("bathRooms", single.get("BathroomsTotalDecimal").toString())
-        											  .set("livingArea", single.get("LivingArea").toString())
-        											  .set("address", single.get("UnparsedAddress").toString() )
-        											  .set("latitude", single.get("Latitude").toString()  )
-        											  .set("longitude", single.get("Longitude").toString()  )
-        											  .set("mediaURL", singleMediaUrl)
-        											  .set("mlsStatus", single.get("MlsStatus").toString())
-        											  .set("mediaURLList", vMediaList).build();  
-        	propertyList.add(property);
-        	n++;
-        	if (pageLimit < sumCount &&  pageLimit == n)  break;
-        } 
-        return propertyList;
-    }
+    
 
     
 

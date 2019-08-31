@@ -8,9 +8,7 @@ import com.pib.property.model.builder.AbstractBuilder;
 
 public class Property {
 
-	private String odataId;
-	
-	private long   price;
+	private long   listPrice;
 	
 	private String mediaURL;
 	
@@ -18,146 +16,154 @@ public class Property {
 	
 	private int count;
 	
-	private String bedRooms;
+	private String bedroomsTotal;
 	
-	private String bathRooms;
+	private String bathroomsFull;
 	
 	private String livingArea;
 	
-	private String lotSizeSquareFeet;
+	private long streetNumberNumeric;
+	
+	private String streetDirPrefix;
+	
+	private String streetName;
+	
+	private String streetSuffix;
+	
+	private String city;
+	
+	private String stateOrProvince;
+	
+	private String postalCode;
+	
 	
 	private String address;
 	
-	private String longitude;
+	private String mlsStatus;
 	
 	private String latitude;
 	
-	private String mlsStatus;
-	
-	private String vDirections;
+	private String longitude;
 	
 	
-	public static final Null NULL = new Null();
-
-	public String getOdataId() {
-		return odataId;
+	 
+ 
+	
+	
+	public long getListPrice() {
+		return listPrice;
 	}
-
-	public void setOdataId(String odataId) {
-		this.odataId = odataId;
+	public void setListPrice(long listPrice) {
+		this.listPrice = listPrice;
 	}
-
-	public long getPrice() {
-		return price;
-	}
-
-	public void setPrice(long price) {
-		this.price = price;
-	}
-
 	public String getMediaURL() {
 		return mediaURL;
 	}
-
 	public void setMediaURL(String mediaURL) {
 		this.mediaURL = mediaURL;
 	}
-	
-	
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
- 
-
- 
-
-	public String getvDirections() {
-		return vDirections;
-	}
-
-	public void setvDirections(String vDirections) {
-		this.vDirections = vDirections;
-	}
-
 	public ArrayList getMediaURLList() {
 		return mediaURLList;
 	}
-
 	public void setMediaURLList(ArrayList mediaURLList) {
 		this.mediaURLList = mediaURLList;
 	}
-
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public String getBedroomsTotal() {
+		return bedroomsTotal;
+	}
+	public void setBedroomsTotal(String bedroomsTotal) {
+		this.bedroomsTotal = bedroomsTotal;
+	}
+	public String getBathroomsFull() {
+		return bathroomsFull;
+	}
+	public void setBathroomsFull(String bathroomsFull) {
+		this.bathroomsFull = bathroomsFull;
+	}
 	public String getLivingArea() {
 		return livingArea;
 	}
-
 	public void setLivingArea(String livingArea) {
 		this.livingArea = livingArea;
 	}
-
-	public String getLongitude() {
-		return longitude;
+	public long getStreetNumberNumeric() {
+		return streetNumberNumeric;
 	}
-
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
+	public void setStreetNumberNumeric(long streetNumberNumeric) {
+		this.streetNumberNumeric = streetNumberNumeric;
 	}
-
-	public String getLatitude() {
-		return latitude;
+	public String getStreetDirPrefix() {
+		return streetDirPrefix;
 	}
-
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
+	public void setStreetDirPrefix(String streetDirPrefix) {
+		this.streetDirPrefix = streetDirPrefix;
 	}
-
+	public String getStreetName() {
+		return streetName;
+	}
+	public void setStreetName(String streetName) {
+		this.streetName = streetName;
+	}
+	public String getStreetSuffix() {
+		return streetSuffix;
+	}
+	public void setStreetSuffix(String streetSuffix) {
+		this.streetSuffix = streetSuffix;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getStateOrProvince() {
+		return stateOrProvince;
+	}
+	public void setStateOrProvince(String stateOrProvince) {
+		this.stateOrProvince = stateOrProvince;
+	}
+	public String getPostalCode() {
+		return postalCode;
+	}
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
 	public String getAddress() {
 		return address;
 	}
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-	public String getBedRooms() {
-		return bedRooms;
-	}
-
-	public void setBedRooms(String bedRooms) {
-		this.bedRooms = bedRooms;
-	}
-
-	public String getBathRooms() {
-		return bathRooms;
-	}
-
-	public void setBathRooms(String bathRooms) {
-		this.bathRooms = bathRooms;
-	}
-
-	public String getLotSizeSquareFeet() {
-		return lotSizeSquareFeet;
-	}
-
-	public void setLotSizeSquareFeet(String lotSizeSquareFeet) {
-		this.lotSizeSquareFeet = lotSizeSquareFeet;
-	}
-	
-	
-
 	public String getMlsStatus() {
 		return mlsStatus;
 	}
-
 	public void setMlsStatus(String mlsStatus) {
 		this.mlsStatus = mlsStatus;
 	}
+	public String getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+	public String getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+	public static Null getNull() {
+		return NULL;
+	}
+	public static final Null NULL = new Null();
 
+	
 
 
 	private static class Null extends Property implements NullObject { 
@@ -174,11 +180,14 @@ public class Property {
     }
 	@Override
 	public String toString() {
-		return "Property [odataId=" + odataId + ", price=" + price + ", mediaURL=" + mediaURL + ", mediaURLList="
-				+ mediaURLList + ", count=" + count + ", bedRooms=" + bedRooms + ", bathRooms=" + bathRooms
-				+ ", livingArea=" + livingArea + ", lotSizeSquareFeet=" + lotSizeSquareFeet + ", address=" + address
-				+ ", longitude=" + longitude + ", latitude=" + latitude + "]";
+		return "Property [listPrice=" + listPrice + ", mediaURL=" + mediaURL + ", mediaURLList=" + mediaURLList
+				+ ", count=" + count + ", bedroomsTotal=" + bedroomsTotal + ", bathroomsFull=" + bathroomsFull
+				+ ", livingArea=" + livingArea + ", streetNumberNumeric=" + streetNumberNumeric + ", streetDirPrefix="
+				+ streetDirPrefix + ", streetName=" + streetName + ", streetSuffix=" + streetSuffix + ", city=" + city
+				+ ", stateOrProvince=" + stateOrProvince + ", postalCode=" + postalCode + ", address=" + address
+				+ ", mlsStatus=" + mlsStatus + ", latitude=" + latitude + ", longitude=" + longitude + "]";
 	}
+	 
 	 
     
 }
