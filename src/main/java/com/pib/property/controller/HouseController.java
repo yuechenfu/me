@@ -63,8 +63,8 @@ public class HouseController {
         if(propertyList != null) {
         	mode.addObject("propertyList", propertyList);
         	mode.addObject("searchCount",sumCount);
-        	mode.addObject("cLat","37.6188888888889");
-        	mode.addObject("cLng","-122.374722222222");
+        	mode.addObject("cLat","25.774");
+        	mode.addObject("cLng","-80.190");
         	//mode.addObject("cLat",propertyList.get(0).getLatitude());
         	//mode.addObject("cLng",propertyList.get(0).getLongitude());
         }

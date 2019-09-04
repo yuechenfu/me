@@ -75,4 +75,18 @@ public class HelloWorldController {
 	    System.out.println(name + " parameter is missing");
 	    // Actual exception handling
 	}
+	@GetMapping("/googleLogin")
+    public ModelAndView googleLogin() {
+		ModelAndView mode = new ModelAndView();
+		mode.setViewName("/pages/googleLogin");
+        return mode;
+    }
+	
+	@GetMapping("/go")
+    public ModelAndView go() {
+		ModelAndView mode = new ModelAndView();
+		mode.setViewName("/pages/index");
+        return mode;
+    }
+	
 }

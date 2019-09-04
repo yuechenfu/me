@@ -20,18 +20,17 @@
     </ul>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-       <a href="index"> <img alt="logo" src="../images/logo.png" width="100px" height="50px"></a>
+       <a href="/property/house/index"> <img alt="logo" src="../images/logo.png" width="100px" height="50px"></a>
       </li>
        
     </ul>
       
-    <a class="nav-link" href="#">Sign in or Join</a>
+    <a href="/property/account/login"  class="current">Sign in or Join</a>
     <a class="nav-link" href="#">Help</a>
   </div>
   <div>
  
   </div>
 </nav>
-
 </body>
 </html>

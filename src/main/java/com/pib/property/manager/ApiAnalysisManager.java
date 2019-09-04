@@ -52,8 +52,8 @@ public class ApiAnalysisManager {
         											  .set("livingArea", single.get("LivingArea").toString())
         											  .set("address", single.get("StreetName").toString() )
         											  .set("mediaURL", fristImageUrl)
-        											  .set("latitude", "34.0522"  )
-        											  .set("longitude","118.2437"  )
+        											  .set("latitude", "25.774"  )
+        											  .set("longitude","-80.190"  )
         											  .set("mediaURLList", vMediaList)
         											  .build();  
         	propertyList.add(property);

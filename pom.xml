@@ -182,6 +182,12 @@
 	    <artifactId>client</artifactId>
 	    <version>4.4.0</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.google.auth/google-auth-library-oauth2-http -->
+	<dependency>
+	    <groupId>com.google.auth</groupId>
+	    <artifactId>google-auth-library-oauth2-http</artifactId>
+	    <version>0.17.1</version>
+	</dependency>
 		
 	</dependencies>
 

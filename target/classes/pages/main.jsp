@@ -75,8 +75,9 @@
 		function initMap() {  
 			var LatLngList = new Array ();
 		    map = new google.maps.Map(document.getElementById('map'), {  
-		            zoom: 14,  
-		            center: new google.maps.LatLng('${cLat}','${cLng}'), // set center  
+		            zoom: 8,  
+		            //center: new google.maps.LatLng('${cLat}','${cLng}'), // set center  
+		            center: new google.maps.LatLng('25.774','-80.190'), 
 		            mapTypeId: google.maps.MapTypeId.ROADMAP // type : HYBRID,ROADMAP,SATELLITE,TERRAIN     
 		        });   
 		     
@@ -101,19 +102,19 @@
 		
 		
 		function setArea(map,LatLngList){
-			alert(LatLngList);
+			 
 			
 			// Define the LatLng coordinates for the polygon's path.
-	       <!--
+	       
 			var triangleCoords = [
 	          {lat: 25.774, lng: -80.190},
 	          {lat: 18.466, lng: -66.118},
 	          {lat: 32.321, lng: -64.757},
 	          {lat: 25.774, lng: -80.190}
 	        ];
-           -->
            
-           var triangleCoords = LatLngList;
+           
+           //var triangleCoords = LatLngList;
 	        // Construct the polygon.
 	        var bermudaTriangle = new google.maps.Polygon({
 	          paths: triangleCoords,
