@@ -182,13 +182,19 @@
 	    <artifactId>client</artifactId>
 	    <version>4.4.0</version>
 	</dependency>
-	<!-- https://mvnrepository.com/artifact/com.google.auth/google-auth-library-oauth2-http -->
-	<dependency>
-	    <groupId>com.google.auth</groupId>
-	    <artifactId>google-auth-library-oauth2-http</artifactId>
-	    <version>0.17.1</version>
-	</dependency>
-		
+	
+ 	<dependency>
+            <groupId>me.zhyd.oauth</groupId>
+            <artifactId>JustAuth</artifactId>
+            <version>1.11.0</version>
+     </dependency>
+     
+      <!-- JustAuth1.9.4版本后，如果需要使用支付宝登录，需要单独引用该依赖 -->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>3.7.4.ALL</version>
+        </dependency>
 	</dependencies>
 
 	<build>

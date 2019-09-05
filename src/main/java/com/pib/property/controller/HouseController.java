@@ -26,15 +26,7 @@ public class HouseController {
     private ApiRevokeManager apiRevokeManager;
 	@Autowired
 	private ApiAnalysisManager apiAnalysisManager;
-	
-	@GetMapping(value="/index")
-	@ResponseBody
-	public ModelAndView home(){
-		ModelAndView mode = new ModelAndView();
-		mode.setViewName("pages/index");
-		return mode;
-	}
-    
+
     @GetMapping("/search")
     public ModelAndView search(HttpServletRequest request,@RequestParam(value="") String search)throws Exception {
 		ModelAndView mode = new ModelAndView();

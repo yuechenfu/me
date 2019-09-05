@@ -14,17 +14,26 @@ import java.time.ZoneId;
 
 public class Account implements Serializable, NotNullObject {
     private Long id;
+    private String email;
     private String username;
+    private String nickname;
     @JsonIgnore
     private String password; 
+    private String phone;
+    private String company;
+    private String location;
+    private String gender;
+    private String imgsrc;
+    private String source;
+    private String remark;
     private String type;
-    private String status;
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
 
     public void fillNotRequire() {
-    	type = type != null ? type : "SE";
-        status = status != null ? status : "Active";
+    	username = username != null ? username : "unknown";
+    	phone = phone != null ? phone : "000";
+    	password = password != null ? password : "123456";
     }
 
     public void createAt() {
@@ -69,15 +78,17 @@ public class Account implements Serializable, NotNullObject {
         return username;
     }
 
-    public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
+   
 
 	
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public void setUsername(String username) {
         if (!StringUtils.isEmpty(username) && username.length() == 10 && username.indexOf("@") == -1) { //如果是电话
@@ -112,22 +123,88 @@ public class Account implements Serializable, NotNullObject {
         this.updateAt = updateAt;
     }
 
-     
-
-    public String getType() {
-		return type;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getImgsrc() {
+		return imgsrc;
+	}
+
+	public void setImgsrc(String imgsrc) {
+		this.imgsrc = imgsrc;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 	@Override
 	public String toString() {
-		return "Account [id=" + id + ", username=" + username + ", password=" + password + ", type=" + type
-				+ ", status=" + status + ", createAt=" + createAt + ", updateAt=" + updateAt + "]";
+		return "Account [id=" + id + ", email=" + email + ", username=" + username + ", nickname=" + nickname
+				+ ", password=" + password + ", phone=" + phone + ", company=" + company + ", location=" + location
+				+ ", gender=" + gender + ", imgsrc=" + imgsrc + ", source=" + source + ", remark=" + remark
+				+ ", createAt=" + createAt + ", updateAt=" + updateAt + "]";
 	}
 
+     
+  
 
 
 	 

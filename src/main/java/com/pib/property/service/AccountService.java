@@ -29,8 +29,12 @@ public interface AccountService {
     
 
     int countByUsername(Account e);
+    
+    int countByEmail(Account e);
 
     Account findByUsername(Account e);
+    
+    Account findByEmail(Account e);
 
 
 }

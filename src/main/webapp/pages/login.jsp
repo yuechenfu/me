@@ -15,9 +15,6 @@
         <meta name="description" content="Login and Registration Form with HTML5 and CSS3" />
         <meta name="keywords" content="html5, css3, form, switch, animation, :target, pseudo-class" />
         <meta name="author" content="Codrops" />
-        <meta name="google-signin-scope" content="profile email">
-    	<meta name="google-signin-client_id" content="513879893620-orme06n0s63i796odh859bimc2bf7oj4.apps.googleusercontent.com">
-    	<script src="https://apis.google.com/js/platform.js" async defer></script>
         <link rel="shortcut icon" href="../favicon.ico"> 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -36,11 +33,17 @@
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form  action="mysuperscript.php" autocomplete="on"> 
+                            <form  action="/account/signin" autocomplete="on"> 
                                 <h1>Log in</h1> 
+                                <c:if test="${type==0}">
+                                <label  style="color: red;text-align:center ;" >Wrong password. Try again!</label>
+                                 </c:if>
+                                <c:if test="${type==1}">
+                                <label  style="color: red;text-align:center ;" >This email is taken .try another !</label>
+                                 </c:if>
                                 <p> 
-                                    <label for="username" class="uname" data-icon="u" >Your email  </label>
-                                    <input id="username" name="username" required="required" type="text" placeholder="mymail@mail.com"/>
+                                    <label for="username" class="uname" data-icon="u" >Your email</label>
+                                    <input id="email" name="email" required="required" type="text" placeholder="mymail@mail.com"/>
                                 </p>
                                 <p> 
                                     <label for="password" class="youpasswd" data-icon="p"> Your password </label>
@@ -54,7 +57,7 @@
                                     <input type="submit" value="Login" /> 
                                     &nbsp;&nbsp;
                                     <label id="connect">connect with:</label>
-                                    <a  class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"><img src="../images/google_logo.jpg" width="26px" height="26px"/></a>
+                                    <a target="_blank" href="http://127.0.0.1:8080/oauth/render/google"><img src="../images/google_logo.jpg" width="26px" height="26px"/></a>
                                     <a href=""><img src="../images/facebook_logo.png" width="30px" height="30px"/></a>
                                     
 								</p>
@@ -66,29 +69,30 @@
                         </div>
 
                         <div id="register" class="animate form">
-                            <form  action="mysuperscript.php" autocomplete="on"> 
+                            <form  action="/account/signup" autocomplete="on" method="post"> 
                                 <h1> Sign up </h1> 
+                                 
                                 <p> 
                                     <label for="usernamesignup" class="uname" data-icon="u">Your username</label>
-                                    <input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="mysuperusername690" />
+                                    <input id="usernamesignup" name=username required="required" type="text" placeholder="mysuperusername690" />
                                 </p>
                                 <p> 
                                     <label for="emailsignup" class="youmail" data-icon="e" > Your email</label>
-                                    <input id="emailsignup" name="emailsignup" required="required" type="email" placeholder="mysupermail@mail.com"/> 
+                                    <input id="emailsignup" name="email" required="required" type="email" placeholder="mysupermail@mail.com"/> 
                                 </p>
                                 <p> 
                                     <label for="passwordsignup" class="youpasswd" data-icon="p">Your password </label>
-                                    <input id="passwordsignup" name="passwordsignup" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                                    <input id="passwordsignup" name="password" required="required" type="password" placeholder="eg. X8df!90EO"/>
                                 </p>
                                 <p> 
                                     <label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Please confirm your password </label>
-                                    <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                                    <input id="passwordsignup_confirm" name="password" required="required" type="password" placeholder="eg. X8df!90EO"/>
                                 </p>
                                 <p class="signin button"> 
 									<input type="submit" value="Sign up"/> 
 									&nbsp;&nbsp;
                                     <label id="connect">connect with:</label>
-                                    <a href=""><img src="../images/google_logo.jpg" width="26px" height="26px"/></a>
+                                    <a target="_blank" href="http://127.0.0.1:8080/oauth/render/google"><img src="../images/google_logo.jpg" width="26px" height="26px"/></a>
                                     <a href=""><img src="../images/facebook_logo.png" width="30px" height="30px"/></a>
 								</p>
                                 <p class="change_link">  
@@ -103,28 +107,6 @@
             </section>
         </div>
         
-        <script>
-      function onSignIn(googleUser) {
-        // 客户端如果有需要的话可以通过profile来获取用户信息
-        var profile = googleUser.getBasicProfile();
-        // 传回后台验证，并获取userid
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://gntina.iok.la/googleVerify');
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onload = function() {
-          console.log('Signed in as: ' + xhr.responseText);
-        };
-        xhr.send('idtokenstr=' + id_token);
-      };
-      
-      function signOut() {
-    	    var auth2 = gapi.auth2.getAuthInstance();
-    	    auth2.signOut().then(function () {
-    	      console.log('User signed out.');
-    	    });
-    	  }
-    </script>
+       
     </body>
 </html>

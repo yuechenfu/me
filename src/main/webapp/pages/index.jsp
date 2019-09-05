@@ -20,7 +20,7 @@
 		<h1 align ="center">Reimagine home <br>
 		<h3 align ="center">We’ll help you find a place you’ll love.</h3>
 		<br>
-		<form action="/property/house/search" id="search_box">
+		<form action="/house/search" id="search_box">
 			<div class="wrapper">
 				<input type="text" id="search" name="search" placeholder="Enter an address, city, or ZIP code" />
 				<button type="submit" class="search_btn"><img src="../images/search_icon.png" title="Search" /></button>

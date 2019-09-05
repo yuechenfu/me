@@ -27,8 +27,6 @@ public class AccountServiceImpl implements AccountService {
         e.fillNotRequire();
         e.createAt();
         e.updateAt();
-        boolean exists = dao.countByUsername(e) == 1;
-        if (exists) throw new FailException("exists");
         e.md5Password();
         return dao.save(e) == 1;
     }
@@ -65,8 +63,8 @@ public class AccountServiceImpl implements AccountService {
   
     @Override
     public Account findByLogin(Account e) {
-        e.md5Password();
-        Account result = dao.findByUsernameAndPassword(e);
+        e.md5Password(); 
+        Account result = dao.findByEmailAndPassword(e); 
         return result != null ? result : Account.NULL;
     }
 
@@ -74,10 +72,21 @@ public class AccountServiceImpl implements AccountService {
     public int countByUsername(Account e) {
         return dao.countByUsername(e);
     }
+    
+    @Override
+    public int countByEmail(Account e) {
+        return dao.countByEmail(e);
+    }
 
     @Override
     public Account findByUsername(Account e) {
         Account result = dao.findByUsername(e);
+        return result != null ? result : Account.NULL;
+    }
+    
+    @Override
+    public Account findByEmail(Account e) {
+        Account result = dao.findByEmail(e);
         return result != null ? result : Account.NULL;
     }
 

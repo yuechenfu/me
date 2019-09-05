@@ -3,17 +3,15 @@ package com.pib.property.dao;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.jdbc.SQL;
 import org.springframework.stereotype.Repository;
-import java.util.List;
-
 import com.pib.property.entity.Account;
-import com.pib.property.model.SearchCondition;
  
 
 @Repository
 @Mapper
 public interface AccountDao {
-    @Insert("insert into account(id, username, password,  type, status,  createAt, updateAt) values(#{id}, #{username}, #{password},  #{type}, #{status},  #{createAt}, #{updateAt})")
-    @SelectKey(statement = "select SEQ_ACCOUNT_ID.NEXTVAL from dual ", keyProperty = "id", before = true, resultType = long.class)
+    @Insert("insert into account(email, username, password, nickname, phone, company, location, gender, imgsrc, source, remark,  createAt, updateAt) "+
+           " values(#{email}, #{username}, #{password},  #{nickname}, #{phone}, #{company}, #{location}, #{gender}, #{imgsrc}, #{source}, #{remark},  #{createAt}, #{updateAt})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(Account e);
 
     @Delete("delete from account where id=#{id}")
@@ -32,12 +30,23 @@ public interface AccountDao {
 
     @Select("select count(*) from account e where username=#{username}")
     int countByUsername(Account e);
+    
+    @Select("select count(*) from account e where email=#{email}")
+    int countByEmail(Account e);
 
     @Select("select * from account e where username=#{username} ")
     Account findByUsername(Account e);
+    
+    @Select("select * from account e where email=#{email} ")
+    Account findByEmail(Account e);
 
     @Select("select * from account e where username=#{username} and password=#{password}")
     Account findByUsernameAndPassword(Account e);
+    
+    @Select("select * from account e where email=#{email} and password=#{password}")
+    Account findByEmailAndPassword(Account e);
+    
+     
 
     class Sql {
         public static String update(final Account e) {
@@ -45,7 +54,15 @@ public interface AccountDao {
                 UPDATE("account");
                 if (e.getUsername() != null) SET("username=#{username}");
                 if (e.getPassword() != null) SET("password=#{password}");
-                if (e.getType() != null) SET("type=#{type}");
+                if (e.getEmail() != null) SET("email=#{email}");
+                if (e.getNickname() != null) SET("nickname=#{nickname}");
+                if (e.getPhone() != null) SET("phone=#{phone}");
+                if (e.getCompany() != null) SET("company=#{company}");
+                if (e.getLocation() != null) SET("location=#{location}");
+                if (e.getGender() != null) SET("gender=#{gender}");
+                if (e.getImgsrc() != null) SET("imgsrc=#{imgsrc}");
+                if (e.getSource() != null) SET("source=#{source}");
+                if (e.getRemark() != null) SET("remark=#{remark}");
                 SET("updateAt=#{updateAt}");
                 WHERE("id=#{id}");
             }}.toString();

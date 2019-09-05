@@ -28,6 +28,7 @@
 </style>
 </head>
   <body>
+  
     <div class="header"><%@include file="search.jsp"%></div>
        <div id="map"></div>
 	   <div id="prolist">
