@@ -51,14 +51,24 @@
 	<li class="nav-item">
       <a class="nav-link mr-1" href="#">Price</a>
     </li>
-	<li class="nav-item">
-      <a class="nav-link mr-1" href="#">Beds</a>
+	<li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle mr-2" href="#" id="navbardrop" data-toggle="dropdown">Beds</a>
+      <div class="dropdown-menu">
+       <p class="dropdown-item">
+       		<input type="button" value="Any" class="bedcount" />
+       		<input type="button" value="1+" class="bedcount" />
+       		<input type="button" value="2+" class="bedcount" />
+       		<input type="button" value="3+" class="bedcount" />
+       		<input type="button" value="4+" class="bedcount" />
+       		<input type="button" value="5+" class="bedcount" />
+       </p>
+       <hr>
+       <p class="dropdown-button" ><input type="button" value="Done" class="btn btn-primary" /></p>
+      </div>
     </li>
     <!-- Dropdown -->
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle mr-1" href="#" id="navbardrop" data-toggle="dropdown">
-        Home type
-      </a>
+      <a class="nav-link dropdown-toggle mr-1" href="#" id="navbardrop" data-toggle="dropdown">Home type</a>
       <div class="dropdown-menu">
        <p class="dropdown-item"><input type="checkbox" name="" id="" value="Houses" />Houses</p>
        <p class="dropdown-item"><input type="checkbox" name="" id="" value="Apartments" />Apartments</p>
