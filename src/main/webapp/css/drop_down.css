@@ -26,3 +26,8 @@
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+.dropdown-item input{
+	margin:0px;
+}
+ 

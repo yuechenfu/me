@@ -31,7 +31,7 @@ import java.util.List;
 
 
 @Component
-public class ApiCredentialsManager {
+public class CrmlsApiCredentialsManager {
 
     @Value("${api.client.id}") 
     private String clientId ;

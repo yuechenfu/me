@@ -15,8 +15,9 @@ import com.pib.property.entity.Property;
 @Component
 public class ApiAnalysisManager {
 	
-	@Value("${api.pageLimit}") 
+	@Value("${api.bridge.pageLimit}")
 	private int pageLimit;
+	
 	
 	public Integer getPropertyListSize(String resultText) throws Exception {
     	JsonObject jsonObject = new Gson().fromJson(resultText, JsonObject.class);
@@ -25,14 +26,15 @@ public class ApiAnalysisManager {
     	return value.getAsJsonArray().size();
     }
 	
-	public List<Property> getPropertyList(String resultText,int sumCount) throws Exception {
+	public List<Property> getPropertyList(String resultText) throws Exception {
     	int n =0;
     	String fristImageUrl ="";
     	List<Property> propertyList = new ArrayList(); 
     	JsonObject jsonObject = new Gson().fromJson(resultText, JsonObject.class);
-        JsonElement value = jsonObject.get("value");
+        JsonElement value = jsonObject.get("bundle");
         if (value == null) return null;
         JsonArray dataArray =value.getAsJsonArray();
+        int homeCounts =dataArray.size() ;
         for (JsonElement jsonElement : dataArray) {
         	JsonObject single = jsonElement.getAsJsonObject();
         	JsonElement medias = single.get("Media");
@@ -50,15 +52,17 @@ public class ApiAnalysisManager {
         											  .set("bedroomsTotal", single.get("BedroomsTotal").toString())
         											  .set("bathroomsFull", single.get("BathroomsFull").toString())
         											  .set("livingArea", single.get("LivingArea").toString())
-        											  .set("address", single.get("StreetName").toString() )
+        											  .set("address", single.get("UnparsedAddress").toString() )
         											  .set("mediaURL", fristImageUrl)
-        											  .set("latitude", "25.774"  )
-        											  .set("longitude","-80.190"  )
+        											  .set("latitude", single.get("Latitude").toString()  )
+        											  .set("longitude",single.get("Longitude" ).toString() )
+        											  .set("homeCounts",homeCounts)
+        											  .set("pageLimit",pageLimit)
         											  .set("mediaURLList", vMediaList)
         											  .build();  
         	propertyList.add(property);
         	n++;
-        	if (pageLimit < sumCount &&  pageLimit == n)  break;
+        	if (pageLimit < homeCounts &&  pageLimit == n)  break;
         } 
         return propertyList;
     }

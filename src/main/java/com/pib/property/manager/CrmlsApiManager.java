@@ -27,7 +27,7 @@ import java.util.Enumeration;
 import java.util.Map;
 
 @Component
-public class ApiRevokeManager {
+public class CrmlsApiManager {
 
 	
 	@Value("${api.root.url}") 
@@ -39,7 +39,7 @@ public class ApiRevokeManager {
 	
 	
 	@Autowired
-	ApiCredentialsManager apiCredentialsManager;
+	CrmlsApiCredentialsManager apiCredentialsManager;
 	
     public String getTextFromApi(HttpServletRequest request,String resource,Map<String, String> requestParams) throws Exception {
     	RequestBuilder requestBuilder = RequestBuilder.get(constructApiUrl(resource));

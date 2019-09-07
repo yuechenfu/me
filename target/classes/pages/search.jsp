@@ -9,12 +9,29 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  
+  <script src="../js/jquery.range.js"></script>
   <link rel='stylesheet' id='main-css' href='../css/drop_down.css' type='text/css' media='all' />
-  <style type="text/css">
-    .nav-sign{
-      padding-left:100px;
-    }
-  </style>
+  <link rel='stylesheet' id='main-css' href='../css/jquery.range.css' type='text/css' media='all' />
+
+  <script>
+$(function(){
+	$('.range-slider').jRange({
+		from: 0,
+		to: 150,
+		step: 1,
+		scale: [0,25,50,75,100,125,150],
+		format: '%s',
+		width: 350,
+		showLabels: true,
+		isRange : true
+	});
+	$("#g2").click(function(){
+		var aa = $(".range-slider").val();
+		alert(aa);
+	});
+});
+</script>
   </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-light"  >
@@ -22,17 +39,16 @@
       <li class="nav-item active">
        <a href="/"> <img alt="logo" src="../images/logo.png" width="100px" height="50px"></a>
       </li>
-   </ul>
-   <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="#">Buy</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Sell</a>
       </li>
-    </ul>
+   </ul>
+ 
   <!-- Links -->
-  <ul class="navbar-nav">
+  <ul class="navbar-nav mr-auto">
   <form class="form-inline" action="/house/search">
     <li class="nav-item">
      <div class="input-group">
@@ -45,15 +61,32 @@
       </div>
 	</div>
     </li>
-    <li class="nav-item">
-      <a class="nav-link mr-1" href="#" border:1px;>Listing type</a>
+    </form>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle mr-2" href="#" id="navbardrop" data-toggle="dropdown" border:1px; >Listing type</a>
+	     <div class="dropdown-menu">
+       <p class="dropdown-item"><input type="checkbox" name="" id="" value="For sale" />For sales</p>
+       <p class="dropdown-item"><input type="checkbox" name="" id="" value="Potential Listings" />Potential Listings</p>
+       <p class="dropdown-item"><input type="checkbox" name="" id="" value="Sold" />Sold</p>
+       <hr>
+       <p class="dropdown-button" ><input type="button" value="Done" class="btn btn-primary" /></p>
+      </div>
     </li>
-	<li class="nav-item">
-      <a class="nav-link mr-1" href="#">Price</a>
+	<li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle mr-2" href="#" id="navbardrop" data-toggle="dropdown">Price</a>
+      <div class="dropdown-menu">
+       <label>Price unit $10k</label>
+        <br> <p>&nbsp;</p>
+		  <input class="range-slider" type="hidden" value="0,100" />
+		<br>
+	   <hr>
+       <p class="dropdown-button" ><input id="g2" type="button" value="Done" class="btn btn-primary" /></p>
+      </div>
     </li>
 	<li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle mr-2" href="#" id="navbardrop" data-toggle="dropdown">Beds</a>
       <div class="dropdown-menu">
+       <p class="dropdown-item">Bedrooms</p>
        <p class="dropdown-item">
        		<input type="button" value="Any" class="bedcount" />
        		<input type="button" value="1+" class="bedcount" />
@@ -62,6 +95,7 @@
        		<input type="button" value="4+" class="bedcount" />
        		<input type="button" value="5+" class="bedcount" />
        </p>
+       <p class="dropdown-item"><input type="checkbox" name=""/>Use exact match</p>
        <hr>
        <p class="dropdown-button" ><input type="button" value="Done" class="btn btn-primary" /></p>
       </div>
@@ -88,7 +122,11 @@
 		<button class="btn btn-primary" type="submit">Save Search</button>
     </li>
     
-    <c:if test="${empty loginAccount}">   
+	
+  </ul>
+  
+  <ul class="nav navbar-nav navbar-right">
+   <c:if test="${empty loginAccount}">   
     <li  class="nav-sign">
     <a href="/account/login"  class="nav-link">Sign in or Join</a>
     </li>
@@ -112,12 +150,9 @@
 			</div>
       </li> 
       </c:if>
-	</form>
+      <li><a class="nav-link" href="#">Help</a></li>
   </ul>
-  <ul>
-  <li><hr></li>
-  </ul>
-<hr>
+ 
 </nav>
 </body>
 </html>

@@ -21,6 +21,8 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -28,12 +30,20 @@ import com.pib.property.exception.FailException;
 import com.pib.property.log.LogUtil;
  
  
-
+@Component
 public class BridgeApiManager {
 	
-	@Value("${cisco.apiAddr}")
-    private String baseApiServiceAddr;
+	@Value("${api.bridge.rootUrl}")
+    private String rootUrl;
 	
+	@Value("${api.bridge.dataset}")
+    private String dataset;
+	
+	@Value("${api.bridge.token}")
+    private String token;
+	
+	@Value("${api.bridge.maxRecordLimit}")
+    private String maxRecordLimit;
 	
 	public JsonObject parseJsonFromApi(String resultText) throws Exception {
         JsonObject jsonObject = new Gson().fromJson(resultText, JsonObject.class);
@@ -45,8 +55,8 @@ public class BridgeApiManager {
         return result;
     }
 
-    public String getTextFromApi(String url, HttpServletRequest request, Map<String, String> requestParams) throws Exception {
-        RequestBuilder requestBuilder = RequestBuilder.get(baseApiServiceAddr + url);
+    public String getTextFromApi(String resource, HttpServletRequest request, Map<String, String> requestParams) throws Exception {
+        RequestBuilder requestBuilder = RequestBuilder.get(constructApiUrl(resource));
         if (requestParams != null && !requestParams.isEmpty()) {
             requestParams.keySet().stream().forEach(paramName -> {
                 Object paramValue = requestParams.get(paramName);
@@ -54,19 +64,55 @@ public class BridgeApiManager {
             });
         }
         setHeader(request, requestBuilder);
-        String result = requestCiscoApiTextByHttps(requestBuilder.build());
+        String result = requestCrmlsApiTextByHttps(requestBuilder.build());
+       
         if (StringUtils.isEmpty(result)) {
             throw new FailException("connection fail");
         }
         return result;
     }
+    
+    public String getTextFromApiByPostalCode(HttpServletRequest request,String resource,Map<String, String> requestParams) throws Exception {
+    	RequestBuilder requestBuilder = RequestBuilder.get(constructApiUrl(resource));
+    	if (requestParams != null && !requestParams.isEmpty()) {
+            requestParams.keySet().stream().forEach(paramName -> {
+                Object paramValue = requestParams.get(paramName);
+                requestBuilder.addParameter(paramName, String.valueOf(paramValue));
+            });
+        }
+        String result = requestCrmlsApiTextByHttps(requestBuilder.build());
+        if (StringUtils.isEmpty(result)) {
+            throw new FailException("connection fail");
+        }
+        System.out.println("requestBuilder.build()="+requestBuilder.build());
+        
+        return result;
+    }
+    
+    public String getTextFromApiByAddress(HttpServletRequest request,String resource,Map<String, String> requestParams) throws Exception {
+    	RequestBuilder requestBuilder = RequestBuilder.get(constructApiUrl(resource));
+    	if (requestParams != null && !requestParams.isEmpty()) {
+            requestParams.keySet().stream().forEach(paramName -> {
+                Object paramValue = requestParams.get(paramName);
+                requestBuilder.addParameter(paramName, String.valueOf(paramValue));
+            });
+        }
+        String result = requestCrmlsApiTextByHttps(requestBuilder.build());
+        if (StringUtils.isEmpty(result)) {
+            throw new FailException("connection fail");
+        }
+        System.out.println("requestBuilder.build()="+requestBuilder.build());
+        
+        return result;
+    }
 
-    public String postTextFromApi(String url, HttpServletRequest request, String query) throws Exception {
-        RequestBuilder requestBuilder = RequestBuilder.post(baseApiServiceAddr + url);
+
+    public String postTextFromApi(String resource, HttpServletRequest request, String query) throws Exception {
+        RequestBuilder requestBuilder = RequestBuilder.post(constructApiUrl(resource));
         setHeader(request, requestBuilder);
         HttpEntity httpEntity = new StringEntity(query);
         requestBuilder.setEntity(httpEntity);
-        String result = requestCiscoApiTextByHttps(requestBuilder.build());
+        String result = requestCrmlsApiTextByHttps(requestBuilder.build());
         if (StringUtils.isEmpty(result)) {
             throw new FailException("connection fail");
         }
@@ -85,7 +131,7 @@ public class BridgeApiManager {
         }
     }
 
-    public String requestCiscoApiTextByHttps(HttpUriRequest httpUriRequest) throws IOException {
+    public String requestCrmlsApiTextByHttps(HttpUriRequest httpUriRequest) throws IOException {
         httpUriRequest.removeHeaders(HTTP.CONTENT_LEN);
         String responseText = null;
         CloseableHttpClient client = null;
@@ -110,45 +156,12 @@ public class BridgeApiManager {
         }
         return responseText;
     }
+    
 
-
-    public String getCiscoCookieJob(String userName, String password) {
-        String ciscoCookie = null;
-        RequestBuilder requestBuilder = RequestBuilder.post(baseApiServiceAddr + "/j_security_check");
-        requestBuilder.addParameter("j_username", "devnetuser");
-        requestBuilder.addParameter("j_password", "Cisco123!");
-        HttpUriRequest httpUriRequest = requestBuilder.build();
-
-        CloseableHttpClient client = null;
-        CloseableHttpResponse response = null;
-        try {
-            SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null, (certificate, authType) -> true).build();
-            client = HttpClients.custom().setSSLContext(sslContext).setSSLHostnameVerifier(new NoopHostnameVerifier()).build();
-            response = client.execute(httpUriRequest);
-            HttpEntity entity = response.getEntity();
-            Header[] headers = response.getHeaders("Set-Cookie");
-            if (headers.length > 0) {
-                Header header = headers[0];
-                String command = header.getValue();
-                String[] cx = command.split(";");
-                for (String content : cx) {
-                    if (content.startsWith("JSESSIONID=")) {
-                        ciscoCookie = content.replace("JSESSIONID=", "");
-                        return ciscoCookie;
-                    }
-                }
-            }
-            EntityUtils.consume(entity);
-        } catch (Exception e) {
-            LogUtil.debug(e);
-            LogUtil.error("log‚ " + httpUriRequest.getURI().toString() + " ‚log2: " + e.getMessage());
-        } finally {
-            try {
-                if (response != null) response.close();
-                if (client != null) client.close();
-            } catch (IOException e) {
-            }
-        }
-        return ciscoCookie;
+ 
+    
+    public String constructApiUrl(String resource) throws Exception {
+    	String rUrl = rootUrl + dataset + resource +"access_token="+token+"&limit="+maxRecordLimit;
+    	return rUrl;
     }
 }

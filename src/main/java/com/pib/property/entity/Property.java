@@ -45,6 +45,12 @@ public class Property {
 	
 	private String longitude;
 	
+	private int    homeCounts ;
+	
+	private int  pageLimit;
+	
+	private int  pageCounts;
+	
 	
 	 
  
@@ -157,6 +163,27 @@ public class Property {
 	}
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
+	}
+	
+	
+	 
+	public int getPageCounts() {
+		return pageCounts;
+	}
+	public void setPageCounts(int pageCounts) {
+		this.pageCounts = pageCounts;
+	}
+	public int getPageLimit() {
+		return pageLimit;
+	}
+	public void setPageLimit(int pageLimit) {
+		this.pageLimit = pageLimit;
+	}
+	public int getHomeCounts() {
+		return homeCounts;
+	}
+	public void setHomeCounts(int homeCounts) {
+		this.homeCounts = homeCounts;
 	}
 	public static Null getNull() {
 		return NULL;

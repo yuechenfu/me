@@ -107,4 +107,10 @@ public class StringUtil {
         }
         return true;
     }
+	
+	public static int getPageSum(int recordSum,int pageLimit) {
+		int p = (recordSum-1)/pageLimit+1;
+		if (p > 6) return 6;
+		return  p;
+	}
 }

@@ -8,7 +8,10 @@
  <meta charset="utf-8">
  <link rel='stylesheet' id='main-css' href='../css/main_list.css' type='text/css' media='all' />
  <link rel='stylesheet' id='main-css' href='../css/pop_detail.css' type='text/css' media='all' />
- <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script> 
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+ <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
  /* Create two equal columns that floats next to each other */
 .column {
@@ -25,6 +28,7 @@
   display: table;
   clear: both;
 }   
+
 </style>
 </head>
   <body>
@@ -34,7 +38,7 @@
 	   <div id="prolist">
 	     <table border="1" align="center">
        <p align="left"  style="padding-left:20px;">${searchText} Real Estate & Homes For Sale</p>
-       <p align="left"  style="padding-left:20px;">${searchCount } results</p>
+       <p align="left"  style="padding-left:20px;">${homeCounts } results</p>
         <c:forEach var="property" items="${propertyList}" varStatus="status">
            <c:if test="${status.index%2==0}">
 			<tr>
@@ -53,23 +57,40 @@
                     </div>
                 </div>
 			</td>
-		  <c:if test="${status.index%2!=0}">
+		  		<c:if test="${status.index%2!=0}">
 			</tr>
 		  </c:if>
         </c:forEach>
         </table>
-        <div>
-         <hr>
-         <p class="paging">
-                            <a href="Staff_ListServlet?page=${paging.indexpage-1}">&lt;&lt; first </a>
-                            <a href="Staff_ListServlet?page=${paging.page-1 }">    &lt; last </a>
-                            <strong>${paging.page+1}/total ${paging.pagenumber}</strong>
-                            <a href="Staff_ListServlet?page=${paging.page+1}">next &gt;</a>
-                            <a href="Staff_ListServlet?page=${paging.pagenumber-1}">end &gt;&gt;</a>
-        </p>
+	        <div class="pageline">
+			  <p>&nbsp;</p>
+			  <ul class="pagination justify-content-center">
+			    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+			    <c:forEach var="p"  begin="1" end="${pageCounts }">
+				  <li class="page-item"><a class="page-link" href="#">${p}</a></li>  
+				</c:forEach>
+			    
+			    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+			  </ul>
+			</div>
+			<hr>
+        <div class="readme">
+          <p>WHY USE Washingtonproperty?<p>
+		  <p>Washingtonproperty helps you find the newest ${searchText} real estate listings. 
+		  By analyzing information on thousands of single family homes for sale in ${searchText}, 
+		  California  and across the United States, we calculate home values (Zestimates) and the washingtonproperty Home Value Price Index. 
+		  If you're looking to rent in ${searchText}, check out our extensive list of luxury apartments and townhomes. 
+		  We make it easy to find your dream home by filtering home types, price and size. Filtering with keyword search is also possible, 
+		  like "waterfront" or brand new carpet homes in ${searchText}. 
+		  If you're looking specifically for homes in ${searchText} or apartments in ${searchText}, we've got you covered there as well.
+		  </p>
         </div>
-	   </div>
-	   <div class="footer"></div>
+        <br>
+        <hr>
+        <div>
+         <img alt="" src="../images/homeback.png" width="100%">
+        </div>
+	 </div> 
     <script type="text/javascript">  
 		var map = null;  
 		var prev_infowindow = null;  
@@ -77,8 +98,7 @@
 			var LatLngList = new Array ();
 		    map = new google.maps.Map(document.getElementById('map'), {  
 		            zoom: 8,  
-		            //center: new google.maps.LatLng('${cLat}','${cLng}'), // set center  
-		            center: new google.maps.LatLng('25.774','-80.190'), 
+		            center: new google.maps.LatLng('${cLat}','${cLng}'), // set center   
 		            mapTypeId: google.maps.MapTypeId.ROADMAP // type : HYBRID,ROADMAP,SATELLITE,TERRAIN     
 		        });   
 		     
@@ -97,8 +117,8 @@
 			}  
 			//  Fit these bounds to the map  
 			map.fitBounds (bounds);  
-			
-			setArea(map,LatLngList);
+			//set map area
+			//setArea(map,LatLngList);
 		}  
 		
 		
@@ -106,16 +126,16 @@
 			 
 			
 			// Define the LatLng coordinates for the polygon's path.
-	       
+	       <!--
 			var triangleCoords = [
 	          {lat: 25.774, lng: -80.190},
 	          {lat: 18.466, lng: -66.118},
 	          {lat: 32.321, lng: -64.757},
 	          {lat: 25.774, lng: -80.190}
 	        ];
+           -->
            
-           
-           //var triangleCoords = LatLngList;
+           var triangleCoords = LatLngList;
 	        // Construct the polygon.
 	        var bermudaTriangle = new google.maps.Polygon({
 	          paths: triangleCoords,
@@ -219,6 +239,8 @@
 			  var list = vStr.split(",");
 			  return list;
 		  }
+		  
+		 
 	</script>
  <script src="../js/markerclusterer.js"></script>
 <script async defer
