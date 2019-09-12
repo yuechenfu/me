@@ -113,4 +113,14 @@ public class StringUtil {
 		if (p > 6) return 6;
 		return  p;
 	}
+	/**
+	 *   去除引号
+	 * @param str
+	 * @return
+	 */
+	public static String stringRemoveReplaceQuotationMarks(String str) {
+       String rStr= str.replace("\"", "");
+        return rStr ;
+
+    }
 }

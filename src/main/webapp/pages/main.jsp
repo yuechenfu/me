@@ -12,6 +12,8 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
+ 
 <style>
  /* Create two equal columns that floats next to each other */
 .column {
@@ -28,7 +30,6 @@
   display: table;
   clear: both;
 }   
-
 </style>
 </head>
   <body>
@@ -37,17 +38,36 @@
        <div id="map"></div>
 	   <div id="prolist">
 	     <table border="1" align="center">
-       <p align="left"  style="padding-left:20px;">${searchText} Real Estate & Homes For Sale</p>
-       <p align="left"  style="padding-left:20px;">${homeCounts } results</p>
+	     <div >
+	       <p>&nbsp;</p>
+	       <p align="left"  style="padding-left:20px;">${searchText} Real Estate & Homes For Sale</p>
+	       <div class="d-flex mb-3" style="padding-left:20px;">
+		    <div class="p-2 mr-auto">${homeCounts } results</div>
+		    <div class="p-2">
+		    		<li class="nav-item dropdown">
+				      <a class="nav-link dropdown-toggle mr-1" href="#" id="navbardrop" data-toggle="dropdown">Sort By </a>
+				      <div class="dropdown-menu">
+					       <p class="dropdown-item">Price(high to low)</p>
+					       <p class="dropdown-item">Price(low to high)</p>
+					       <p class="dropdown-item">Newest</p>
+					       <p class="dropdown-item">Bedrooms</p>
+					       <p class="dropdown-item">Bathrooms</p>
+					       <p class="dropdown-item">Square Feet</p>
+					       <p class="dropdown-item">Lot Size</p>
+					       <p class="dropdown-item">Zestmiate(high to low)</p>
+					       <p class="dropdown-item">Zestmiate(low to high)</p>
+				      </div>
+				    </li>
+			  </div>
+		   </div>
+	     </div>
         <c:forEach var="property" items="${propertyList}" varStatus="status">
            <c:if test="${status.index%2==0}">
 			<tr>
 		   </c:if>
 			<td>
-			    <div>
-			    <a href="">
-                    <a  href = "#" onclick='javascript:detailWindow(${property.mlsStatus},"$${property.listPrice}",${property.bedroomsTotal}+"bd "+${property.bathroomsFull }+"ba ",${property.livingArea}+"sqft",${property.address},"${property.mediaURL}","${property.mediaURLList}");' 
-                         class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
+			    <div>  
+                    <a  href = "#" onclick="detailWindow('${property.mlsStatus}','$${property.listPrice}','${property.bedroomsTotal}','${property.bathroomsFull}','${property.livingArea}','${property.address}','${property.mediaURL}','${property.mediaURLList}')"  >
                         <img width="350" height="200" src="${property.mediaURL}" class="primary_image" alt="" />
                     </a>
                     <div >
@@ -60,7 +80,7 @@
 		  		<c:if test="${status.index%2!=0}">
 			</tr>
 		  </c:if>
-        </c:forEach>
+        </c:forEach> 
         </table>
 	        <div class="pageline">
 			  <p>&nbsp;</p>
@@ -103,7 +123,7 @@
 		        });   
 		     
 		    <c:forEach items="${propertyList}" var="property">
-		    	addSite(map,'${property.mlsStatus}','$${property.listPrice}','${property.latitude}','${property.longitude}','${property.bedroomsTotal}'+'bd '+'${property.bathroomsFull}'+'ba','${property.livingArea}'+'sqft','${property.address}','${property.mediaURL}','${property.mediaURLList}'); 
+		    	addSite(map,'${property.mlsStatus}','$${property.listPrice}','${property.latitude}','${property.longitude}','${property.bedroomsTotal}','${property.bathroomsFull}','${property.livingArea}','${property.address}','${property.mediaURL}','${property.mediaURLList}'); 
 		    	LatLngList.push(new google.maps.LatLng('${property.latitude}','${property.longitude}'));
 		    </c:forEach>
 		     
@@ -123,8 +143,6 @@
 		
 		
 		function setArea(map,LatLngList){
-			 
-			
 			// Define the LatLng coordinates for the polygon's path.
 	       <!--
 			var triangleCoords = [
@@ -148,7 +166,7 @@
 	        bermudaTriangle.setMap(map);
 		}
 
-		function addSite(map, mlsStatus,price, lat, lng,room,area ,address,image,imagelist) {  
+		function addSite(map, mlsStatus,price, lat, lng,room,bath,area ,address,image,imagelist) {  
 		    var pt = new google.maps.LatLng(lat,lng);  
 		    var marker = new google.maps.Marker({  
 		                map: map,  
@@ -158,7 +176,7 @@
 		    
 		    var contentString=  '<table><tr>'+
 			'<td><img src='+image+' height=50 width=50 /></td> '+
-			'<td>'+price +'<br>'+room +'<br>'+area+'</td> '+
+			'<td>'+price +'<br>'+room +'bd '+bath+'ba <br>'+area+'sqft</td> '+
 			'</tr></table>';
 			
 		    var infowindow = new google.maps.InfoWindow({  
@@ -171,13 +189,14 @@
 		        infowindow.open(map, marker);  
 		    });   
 		    google.maps.event.addListener(marker, 'click', function() {  
-		    	detailWindow(mlsStatus,price,room,area,address,image,imagelist);
+		    	detailWindow(mlsStatus,price,room,bath,area,address,image,imagelist);
                 return false;
 		         
 		    });   
 
        } 
-		function detailWindow(mlsStatus,price,room,area,address,image,imagelist){
+	
+		function detailWindow(mlsStatus,price,room,bath,area,address,image,imagelist){
 			var myArray=strToArray(imagelist); 
 		    var sWidth=document.body.scrollWidth;
 		    var sHeight=document.body.scrollHeight;
@@ -192,7 +211,7 @@
 		    var vHtml ="<div class='singleCon'>";
 		    	vHtml =vHtml + "<div id='close'>Close</div>";
 		    	vHtml =vHtml + "<div class='row'>";
-		    	vHtml =vHtml +     "<div class='column'>";
+		    	vHtml =vHtml +     "<div class='left'>";
 		    	vHtml =vHtml +        "<p align='center'><img src="+image+" width='100%' height='500px'/></p>";
 		    	for(j = 0,len=myArray.length; j < len; j++) {
 		    		if (j % 2 ==0){
@@ -204,10 +223,10 @@
 		    		}
 		    	}
 		    	vHtml =vHtml +     "</div>";
-		    	vHtml =vHtml +     "<div class='column'>";
+		    	vHtml =vHtml +     "<div class='right'>";
 		    	vHtml =vHtml +       "<p><img  src='../images/logo.jpg' width='60px' height='50px'><span  style='padding-left:300px;'><a href='#'>Save</a></span><span style='padding-left:30px;'><a href='#'>Share</a></span><span style='padding-left:30px;'><a href='#'>More...</a></span></p>";
 		    	vHtml =vHtml +     "<hr>";
-		    	vHtml =vHtml +     "<p><span style='font-size:20px'>"+price +"</span><span  style='padding-left:40px;'>"+room +", </span><span  style='padding-left:40px;'>"+area +"</span></p>";
+		    	vHtml =vHtml +     "<p><span style='font-size:20px'>"+price +"</span><span  style='padding-left:40px;'>"+room +"bd "+bath+"ba , </span><span  style='padding-left:40px;'>"+area +"sqft </span></p>";
 		    	vHtml =vHtml +     "<p><span>"+address +"</span></p>";
 		    	vHtml =vHtml +     "<p><span>"+mlsStatus +"</span></p>";
 		    	vHtml =vHtml +     "<p align='right'><span style='padding-right:40px'><button type='button' style='background-color: #e7e7e7;color:blue' >ContactAgent</button></span><span style='padding-right:40px'><button type='button' style='background-color: #008CBA;color: white;'>Take a Tour</button></span></p>";

@@ -62,19 +62,20 @@ $(function(){
 	</div>
     </li>
     </form>
+     
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle mr-2" href="#" id="navbardrop" data-toggle="dropdown" border:1px; >Listing type</a>
-	     <div class="dropdown-menu">
+	   <div class="dropdown-menu" data-stopPropagation="true" id="top_listing_type">
        <p class="dropdown-item"><input type="checkbox" name="" id="" value="For sale" />For sales</p>
        <p class="dropdown-item"><input type="checkbox" name="" id="" value="Potential Listings" />Potential Listings</p>
        <p class="dropdown-item"><input type="checkbox" name="" id="" value="Sold" />Sold</p>
        <hr>
-       <p class="dropdown-button" ><input type="button" value="Done" class="btn btn-primary" /></p>
+       <p class="dropdown-button" ><input type="button" value="Done" class="btn btn-primary" id="listingType" /></p>
       </div>
     </li>
 	<li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle mr-2" href="#" id="navbardrop" data-toggle="dropdown">Price</a>
-      <div class="dropdown-menu">
+      <div class="dropdown-menu" data-stopPropagation="true">
        <label>Price unit $10k</label>
         <br> <p>&nbsp;</p>
 		  <input class="range-slider" type="hidden" value="0,100" />
@@ -85,7 +86,7 @@ $(function(){
     </li>
 	<li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle mr-2" href="#" id="navbardrop" data-toggle="dropdown">Beds</a>
-      <div class="dropdown-menu">
+      <div class="dropdown-menu" data-stopPropagation="true">
        <p class="dropdown-item">Bedrooms</p>
        <p class="dropdown-item">
        		<input type="button" value="Any" class="bedcount" />
@@ -101,9 +102,9 @@ $(function(){
       </div>
     </li>
     <!-- Dropdown -->
-    <li class="nav-item dropdown">
+    <li class="nav-item dropdown" >
       <a class="nav-link dropdown-toggle mr-1" href="#" id="navbardrop" data-toggle="dropdown">Home type</a>
-      <div class="dropdown-menu">
+      <div class="dropdown-menu" data-stopPropagation="true">
        <p class="dropdown-item"><input type="checkbox" name="" id="" value="Houses" />Houses</p>
        <p class="dropdown-item"><input type="checkbox" name="" id="" value="Apartments" />Apartments</p>
        <p class="dropdown-item"><input type="checkbox" name="" id="" value="Condos/co-ops" />Condos/co-ops</p>
@@ -113,15 +114,14 @@ $(function(){
        <hr>
        <p class="dropdown-button" ><input type="button" value="Done" class="btn btn-primary" /></p>
       </div>
- 
     </li>
-	<li class="nav-item">
-      <a class="nav-link mr-3" href="#">More</a>
+	<li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle mr-2" href="#" id="navbardrop" data-toggle="dropdown">More</a>
+      <%@include file="drop_more.jsp"%>
     </li>
 	<li class="nav-item">	
-		<button class="btn btn-primary" type="submit">Save Search</button>
-    </li>
-    
+		<button class="btn btn-primary" type="submit" onclick="saveParmeter()" id="saveButton">Save Search</button>
+    </li> 
 	
   </ul>
   
@@ -155,4 +155,25 @@ $(function(){
  
 </nav>
 </body>
+<!-- do the drop menu to cancel  -->
+<script type="text/javascript">
+	$("body").on('click','[data-stopPropagation]',function (e) {
+	    e.stopPropagation();
+	});
+	
+	$(document).ready(function(){
+		  $("#listingType").click(function(){
+			//$('#listingType').parent().parent('#top_listing_type').css("display","none");
+		  });
+	});
+	$(document).ready(function(){
+		  $("#saveButton").click(function(){
+			  
+			var search_text = $("#search").val();  
+		    alert(search_text);
+		  });
+	});
+	
+	
+</script>
 </html>

@@ -11,6 +11,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.pib.property.entity.Property;
+import com.pib.util.StringUtil;
 
 @Component
 public class ApiAnalysisManager {
@@ -52,7 +53,7 @@ public class ApiAnalysisManager {
         											  .set("bedroomsTotal", single.get("BedroomsTotal").toString())
         											  .set("bathroomsFull", single.get("BathroomsFull").toString())
         											  .set("livingArea", single.get("LivingArea").toString())
-        											  .set("address", single.get("UnparsedAddress").toString() )
+        											  .set("address", StringUtil.stringRemoveReplaceQuotationMarks(single.get("UnparsedAddress").toString() ))
         											  .set("mediaURL", fristImageUrl)
         											  .set("latitude", single.get("Latitude").toString()  )
         											  .set("longitude",single.get("Longitude" ).toString() )

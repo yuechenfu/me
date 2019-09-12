@@ -24,12 +24,15 @@
     z-index:3;
     }
 .singleCon{ 
-	top :10px;
+	top :0px;
 	overflow-y: scroll; 
 	overflow-x:hidden;
     position:relative; 
-    width:1300px;
+    width:1200px;
     height: calc(100vh - 2px);     
     /*background:url(img/loginBg.png) #2A2C2E center center no-repeat;*/
     background-color: #ffffff; 
+}
+.singleCon .row .left{
+
 }

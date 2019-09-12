@@ -6,13 +6,17 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.pib.property.entity.Account;
 import com.pib.property.entity.Property;
 import com.pib.property.manager.BridgeApiManager;
 import com.pib.property.manager.ApiAnalysisManager;
-import com.pib.util.StringUtil;
+import com.pib.util.StringUtil; 
 
 @RestController(value = "HouseController")
 @RequestMapping({"/house"})
@@ -53,6 +57,17 @@ public class HouseController {
         }
         mode.addObject("searchText",search);
 		mode.setViewName("pages/main");
+        return mode;
+    }
+    
+    
+    @GetMapping("/save_search")
+    public ModelAndView save_search(HttpServletRequest request)throws Exception {
+    	HttpSession session = request.getSession();
+    	ModelAndView mode = new ModelAndView();
+		Account account = (Account) session.getAttribute("loginAccount");
+    	if (account == null) return new ModelAndView("redirect:/account/login");
+    	mode.setViewName("/pages/index");
         return mode;
     }
     
