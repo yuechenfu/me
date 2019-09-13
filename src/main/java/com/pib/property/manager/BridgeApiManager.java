@@ -61,22 +61,7 @@ public class BridgeApiManager {
         return result;
     }
 
-    public String getTextFromApi(String resource, HttpServletRequest request, Map<String, String> requestParams) throws Exception {
-        RequestBuilder requestBuilder = RequestBuilder.get(constructApiUrl(resource));
-        if (requestParams != null && !requestParams.isEmpty()) {
-            requestParams.keySet().stream().forEach(paramName -> {
-                Object paramValue = requestParams.get(paramName);
-                requestBuilder.addParameter(paramName, String.valueOf(paramValue));
-            });
-        }
-        setHeader(request, requestBuilder);
-        String result = requestCrmlsApiTextByHttps(requestBuilder.build());
-       
-        if (StringUtils.isEmpty(result)) {
-            throw new FailException("connection fail");
-        }
-        return result;
-    }
+ 
     
     public String getTextFromApiByCondition(HttpServletRequest request,PropertyFilterCondition condition) throws Exception {
     	RequestBuilder requestBuilder = RequestBuilder.get(constructApiUrl(resource));
@@ -91,6 +76,7 @@ public class BridgeApiManager {
         if (StringUtils.isEmpty(result)) {
             throw new FailException("connection fail");
         }
+        
         System.out.println("requestBuilder.build()="+requestBuilder.build());
         
         return result;
