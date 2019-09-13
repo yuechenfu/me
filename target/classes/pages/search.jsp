@@ -54,7 +54,7 @@ $(function(){
      <div class="input-group">
       <div class="input-icon-group">
         <div class="input-group" style="width:100%">
-           <input type="text" class="form-control" id="search" name="search" value="${searchText}" data-clearbtn="true">
+           <input type="text" class="form-control" id="search" name="searchText" value="${searchText}" data-clearbtn="true">
                <span class="input-group-addon"><i class="md md-center-focus-weak fa-lg"> </i></span> 
            </input>
         </div>
@@ -66,9 +66,9 @@ $(function(){
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle mr-2" href="#" id="navbardrop" data-toggle="dropdown" border:1px; >Listing type</a>
 	   <div class="dropdown-menu" data-stopPropagation="true" id="top_listing_type">
-       <p class="dropdown-item"><input type="checkbox" name="" id="" value="For sale" />For sales</p>
-       <p class="dropdown-item"><input type="checkbox" name="" id="" value="Potential Listings" />Potential Listings</p>
-       <p class="dropdown-item"><input type="checkbox" name="" id="" value="Sold" />Sold</p>
+       <p class="dropdown-item"><input type="checkbox" name="listTypeCheckbox" id="listTypeCheckbox" value="ForSale" />For sales</p>
+       <p class="dropdown-item"><input type="checkbox" name="listTypeCheckbox" id="listTypeCheckbox" value="Pending" />Pending</p>
+       <p class="dropdown-item"><input type="checkbox" name="listTypeCheckbox" id="listTypeCheckbox" value="Sold" />Sold</p>
        <hr>
        <p class="dropdown-button" ><input type="button" value="Done" class="btn btn-primary" id="listingType" /></p>
       </div>
@@ -163,12 +163,55 @@ $(function(){
 	
 	$(document).ready(function(){
 		  $("#listingType").click(function(){
-			//$('#listingType').parent().parent('#top_listing_type').css("display","none");
+			var params = {};  
+			params.clickMenu = "ListType";
+		    params.searchText = $("#search").val(); 
+		    
+		    var len = $("input[name='listTypeCheckbox']:checked").length;
+		    var chk =[];
+		    for (var i=0; i<len ; i++){
+		    	var obj = $("input[name='listTypeCheckbox']:checked")[i];
+		    	chk[i] =obj.value;
+		    }
+		    params.listType = chk;
+		    alert(chk);
+			$.ajax({
+				 async:false,  
+			        type: "POST",  
+			        url: "/house/filter",//url 
+			        dataType:"json",  
+			        contentType:"application/json",   
+			        data: JSON.stringify(params),
+			        success:function(data){  
+			            if(data.msg=='SUCCESS'){  
+			                $(location).attr('href', '/house/search?searchText='+$("#search").val());
+			            }else{ 
+			                //alert("Error【" + data.result + "】");  
+			            }  
+			        },  
+			        error:function(data){  
+			            alert(data.result);  
+			        }  
+		        });
 		  });
 	});
+	
+	$(document).ready(function(){
+		$('input:checkbox').each(function(){
+			  
+			  var checkID = [];//定义一个空数组 
+		        $("input[name='listTypeCheckbox']:checked").each(function(i){//把所有被选中的复选框的值存入数组
+		            checkID[i] =$(this).val();
+		        }); 
+  
+			    
+			  
+		  });
+	});
+	
+	
 	$(document).ready(function(){
 		  $("#saveButton").click(function(){
-			  
 			var search_text = $("#search").val();  
 		    alert(search_text);
 		  });

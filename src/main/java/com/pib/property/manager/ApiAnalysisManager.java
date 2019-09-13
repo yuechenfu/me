@@ -1,8 +1,13 @@
 package com.pib.property.manager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -11,13 +16,19 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.pib.property.entity.Property;
+import com.pib.property.entity.PropertyFilterCondition;
 import com.pib.util.StringUtil;
 
 @Component
 public class ApiAnalysisManager {
 	
+	@Autowired
+    private BridgeApiManager bridgeApiManager;
+	
 	@Value("${api.bridge.pageLimit}")
 	private int pageLimit;
+	
+	
 	
 	
 	public Integer getPropertyListSize(String resultText) throws Exception {
@@ -26,6 +37,21 @@ public class ApiAnalysisManager {
         if (value == null) return 0;
     	return value.getAsJsonArray().size();
     }
+	
+	
+	public String getJsonResultByFilter(HttpServletRequest request,PropertyFilterCondition condition) throws Exception {
+		String resultText ="";
+//		Map<String, String> params = new HashMap<>();
+//		if (StringUtil.isNumber(searchText)) {
+//        	params.put("PostalCode" , searchText );
+//        	resultText = bridgeApiManager.getTextFromApiByPostalCode(request,params);
+//        }
+//        else {
+//        	params.put("UnparsedAddress.in", searchText);
+//            resultText =  bridgeApiManager.getTextFromApiByAddress(request,params);
+//        }
+		return resultText;
+	}
 	
 	public List<Property> getPropertyList(String resultText) throws Exception {
     	int n =0;

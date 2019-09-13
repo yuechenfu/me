@@ -2,6 +2,7 @@ package com.pib.property.manager;
 
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.net.ssl.SSLContext;
@@ -26,8 +27,10 @@ import org.springframework.stereotype.Component;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.pib.property.entity.PropertyFilterCondition;
 import com.pib.property.exception.FailException;
 import com.pib.property.log.LogUtil;
+import com.pib.util.StringUtil;
  
  
 @Component
@@ -44,6 +47,9 @@ public class BridgeApiManager {
 	
 	@Value("${api.bridge.maxRecordLimit}")
     private String maxRecordLimit;
+	
+	@Value("${api.bridge.resource}")
+	private String resource;
 	
 	public JsonObject parseJsonFromApi(String resultText) throws Exception {
         JsonObject jsonObject = new Gson().fromJson(resultText, JsonObject.class);
@@ -72,11 +78,12 @@ public class BridgeApiManager {
         return result;
     }
     
-    public String getTextFromApiByPostalCode(HttpServletRequest request,String resource,Map<String, String> requestParams) throws Exception {
+    public String getTextFromApiByCondition(HttpServletRequest request,PropertyFilterCondition condition) throws Exception {
     	RequestBuilder requestBuilder = RequestBuilder.get(constructApiUrl(resource));
-    	if (requestParams != null && !requestParams.isEmpty()) {
-            requestParams.keySet().stream().forEach(paramName -> {
-                Object paramValue = requestParams.get(paramName);
+    	Map<String, String> params = mergeCondition(condition);
+    	if (params != null && !params.isEmpty()) {
+    		params.keySet().stream().forEach(paramName -> {
+                Object paramValue = params.get(paramName);
                 requestBuilder.addParameter(paramName, String.valueOf(paramValue));
             });
         }
@@ -89,24 +96,28 @@ public class BridgeApiManager {
         return result;
     }
     
-    public String getTextFromApiByAddress(HttpServletRequest request,String resource,Map<String, String> requestParams) throws Exception {
-    	RequestBuilder requestBuilder = RequestBuilder.get(constructApiUrl(resource));
-    	if (requestParams != null && !requestParams.isEmpty()) {
-            requestParams.keySet().stream().forEach(paramName -> {
-                Object paramValue = requestParams.get(paramName);
-                requestBuilder.addParameter(paramName, String.valueOf(paramValue));
-            });
-        }
-        String result = requestCrmlsApiTextByHttps(requestBuilder.build());
-        if (StringUtils.isEmpty(result)) {
-            throw new FailException("connection fail");
-        }
-        System.out.println("requestBuilder.build()="+requestBuilder.build());
-        
-        return result;
+    public Map<String, String> mergeCondition(PropertyFilterCondition condition){
+    	Map<String, String> params = new HashMap<>();
+    	if(StringUtil.isNumber(condition.getSearchText()))params.put("PostalCode" , condition.getSearchText() );
+    	else params.put("UnparsedAddress.in", condition.getSearchText());
+    	if(condition.getListType() !=null) {
+    		for(String list_type:condition.getListType()) {
+    			switch (list_type) {
+    			  case  "ForSale" :
+    			      params.put("StandardStatus", "Active");
+    			  case  "Sold" :
+        			  params.put("StandardStatus", "Closed");
+    			  case  "Pending" :
+        			  params.put("StandardStatus", "Pending");  	  
+    			}
+    			 
+    		}
+    	}
+    	
+    	return params;
+    	
     }
-
-
+    
     public String postTextFromApi(String resource, HttpServletRequest request, String query) throws Exception {
         RequestBuilder requestBuilder = RequestBuilder.post(constructApiUrl(resource));
         setHeader(request, requestBuilder);
