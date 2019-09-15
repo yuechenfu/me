@@ -1,55 +1,294 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<head>
-<link rel='stylesheet' id='main-css' href='../css/drop_down.css' type='text/css' media='all' />
-</head>
-<html>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarText">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Buy</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Sell</a>
-      </li>
-    </ul>
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-       <a href="/"> <img alt="logo" src="../images/logo.png" width="100px" height="50px"></a>
-      </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-    <c:if test="${empty loginAccount}">   
-       <a href="/account/login" class="nav-link">Sign in or Join</a>
-    </c:if>
-    <c:if test="${not empty loginAccount}"> 
-    <li id="logon">
-		  <div class="dropdown">
-			  <a href="#"  class="nav-link">${loginAccount.username }</a>
-			  <div class="dropdown-content">
-			    <p>&nbsp;</p>
-			    <p  systle="font-size: 18px;font-weight:bold;" >&nbsp;My Home</p>
-			    <p><a href="#"  systle="font-size: 10px;font-weight: bold;"> Claim my home </a></p>
-			    <p>.....................................</p>
-			    <p  systle="font-size: 18px;font-weight: 1000;">&nbsp;My Account </p>
-			    <p><a href="#"  systle="font-size: 10px;font-weight: 400;"> Profile </a></p>
-			    <p><a href="#"  systle="font-size: 10px;font-weight: 400;"> Subscribtions </a></p>
-			    <p><a href="#"  systle="font-size: 10px;font-weight: 400;"> Settings </a></p>
-			    <p>.....................................</p>
-			    <a href="/account/signout">Sign out</a>
-			  </div>
-			</div>
-      </li> 
-      </c:if>
-      <li><a class="nav-link" href="#">Help</a></li>
-      </ul>
-  </div>
-</nav>
-</body>
-</html>
+<div class="topbar">
+        <div class="logo">
+            <h1>
+                <a href="#" title="">
+                    <img src="../images/logo.jpg" alt="" />
+                </a>
+            </h1>
+        </div>
+        <div class="topbar-data">
+            <div class="usr-act">
+                <i>HELLO, JOHN SMITH!</i>
+                <span>
+                    <img src="../images/resource/topbar-usr1.jpg" alt="" />
+                    <i class="sts away"></i>
+                </span>
+                <div class="usr-inf">
+                    <div class="usr-thmb brd-rd50">
+                        <img class="brd-rd50" src="../images/resource/usr.jpg" alt="" />
+                        <i class="sts away"></i>
+                        <a class="green-bg brd-rd5" href="#" title="">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </div>
+                    <h5>
+                        <a href="#" title="">John Smith</a>
+                    </h5>
+                    <span>Co Worker</span>
+                    <i>076 9477 4896</i>
+                    <div class="act-pst-lk-stm">
+                        <a class="brd-rd5 green-bg-hover" href="#" title="">
+                            <i class="ion-heart"></i> Love</a>
+                        <a class="brd-rd5 blue-bg-hover" href="#" title="">
+                            <i class="ion-forward"></i> Reply</a>
+                    </div>
+                    <div class="usr-ft">
+                        <a class="btn-danger" href="#" title="">
+                            <i class="fa fa-sign-out"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+            <form class="topbar-search">
+                <button type="submit">
+                    <i class="ion-ios-search-strong"></i>
+                </button>
+                <input type="text" placeholder="Type and Hit Enter" />
+            </form>
+            <ul class="tobar-links">
+                <li>
+                    <a href="#" title="">
+                        <i class="ion-ios-bell"></i>
+                        <span class="blue-bg">02</span>
+                    </a>
+                    <div class="nti-drp-wrp">
+                        <h5 class="blue-bg">
+                            <span>You Have</span> 7 Notifications</h5>
+                        <div class="nti-lst">
+                            <div class="nti-usr">
+                                <span class="brd-rd50 rd-bg">
+                                    <i class="fa fa-cog"></i>
+                                </span>
+                                <div class="nti-usr-inr">
+                                    <h5>
+                                        <a href="#" title="">Sadi Orlaf</a>
+                                    </h5>
+                                    <span class="pst-tm">Just Now</span>
+                                    <i>Privacy settings changed</i>
+                                </div>
+                            </div>
+                            <div class="nti-usr">
+                                <span class="brd-rd50 drkblu-bg">
+                                    <i class="ion-ios-personadd"></i>
+                                </span>
+                                <div class="nti-usr-inr">
+                                    <h5>
+                                        <a href="#" title="">Katti Smith</a>
+                                    </h5>
+                                    <span class="pst-tm">Just Now</span>
+                                    <i>Mike has added you as friend</i>
+                                </div>
+                            </div>
+                            <div class="nti-usr">
+                                <span class="brd-rd50 orng-bg">
+                                    <i class="ion-thumbsup"></i>
+                                </span>
+                                <div class="nti-usr-inr">
+                                    <h5>
+                                        <a href="#" title="">Willimes Domson</a>
+                                    </h5>
+                                    <span class="pst-tm">Just Now</span>
+                                    <i>like your timeline photo</i>
+                                </div>
+                            </div>
+                            <div class="nti-usr">
+                                <span class="brd-rd50 grn-bg">
+                                    <i class="ion-information-circled"></i>
+                                </span>
+                                <div class="nti-usr-inr">
+                                    <h5>
+                                        <a href="#" title="">Holli Doe</a>
+                                    </h5>
+                                    <span class="pst-tm">Just Now</span>
+                                    <i>Curabitur id eros limes suscipit blandit.</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nt-ftr">
+                            <a href="#" title="">View All</a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" title="">
+                        <i class="ion-android-drafts"></i>
+                        <span class="green-bg">10</span>
+                    </a>
+                    <div class="nti-drp-wrp">
+                        <h5 class="green-bg">
+                            <span>You Have</span> 7 New Messages</h5>
+                        <div class="nti-lst">
+                            <div class="nti-usr">
+                                <img class="brd-rd50" src="../images/resource/acti-thmb2.jpg" alt="" />
+                                <div class="nti-usr-inr">
+                                    <h5>
+                                        <a href="#" title="">Sadi Orlaf</a>
+                                    </h5>
+                                    <span class="pst-tm">Just Now</span>
+                                    <i>Privacy settings changed</i>
+                                </div>
+                            </div>
+                            <div class="nti-usr">
+                                <img class="brd-rd50" src="../images/resource/acti-thmb1.jpg" alt="" />
+                                <div class="nti-usr-inr">
+                                    <h5>
+                                        <a href="#" title="">Katti Smith</a>
+                                    </h5>
+                                    <span class="pst-tm">Just Now</span>
+                                    <i>Mike has added you as friend</i>
+                                </div>
+                            </div>
+                            <div class="nti-usr">
+                                <img class="brd-rd50" src="../images/resource/acti-thmb3.jpg" alt="" />
+                                <div class="nti-usr-inr">
+                                    <h5>
+                                        <a href="#" title="">Willimes Domson</a>
+                                    </h5>
+                                    <span class="pst-tm">Just Now</span>
+                                    <i>like your timeline photo</i>
+                                </div>
+                            </div>
+                            <div class="nti-usr">
+                                <img class="brd-rd50" src="../images/resource/acti-thmb4.jpg" alt="" />
+                                <div class="nti-usr-inr">
+                                    <h5>
+                                        <a href="#" title="">Holli Doe</a>
+                                    </h5>
+                                    <span class="pst-tm">Just Now</span>
+                                    <i>Curabitur id eros limes suscipit blandit.</i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nt-ftr">
+                            <a href="#" title="">View All</a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" title="">
+                        <i class="ion-android-settings"></i>
+                    </a>
+                    <div class="set-lst">
+                        <div class="set-bd">
+                            <h4>General Settings</h4>
+                            <ul class="sett-lst">
+                                <li>
+                                    <span class="chck-bx">
+                                        <input id="set1" type="checkbox">
+                                        <label for="set1">Report Panel Usage</label>
+                                    </span>
+                                    <i>General Settings information</i>
+                                </li>
+                                <li>
+                                    <span class="chck-bx">
+                                        <input id="set2" type="checkbox">
+                                        <label for="set2">Mail Redirect</label>
+                                    </span>
+                                    <i>General Settings information</i>
+                                </li>
+                                <li>
+                                    <span class="chck-bx">
+                                        <input id="set3" type="checkbox">
+                                        <label for="set3">Expose Author Name</label>
+                                    </span>
+                                    <i>General Settings information</i>
+                                </li>
+                            </ul>
+                            <h4>Chat Settings</h4>
+                            <ul>
+                                <li>
+                                    <span class="chck-bx">
+                                        <input id="set4" type="checkbox">
+                                        <label for="set4">Show Me As Online</label>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="chck-bx">
+                                        <input id="set5" type="checkbox">
+                                        <label for="set5">Turn Off Notifications</label>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="set-ft">
+                            <a class="btn-danger" href="#" title="">
+                                <i class="fa fa-trash"></i> Delete Chat History</a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" title="">
+                        <i class="ion-android-contacts"></i>
+                    </a>
+                    <div class="cnt-lst">
+                        <ul>
+                            <li>
+                                <div class="usr">
+                                    <img class="brd-rd50" src="../images/resource/acti-thmb1.jpg" alt="" />
+                                    <div class="usr-innr">
+                                        <h5>
+                                            <a href="#" title="">Smith Doe</a>
+                                        </h5>
+                                        <span>Co Worker</span>
+                                        <a class="green-bg brd-rd5" href="#" title="">
+                                            <i class="fa fa-envelope"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="usr">
+                                    <img class="brd-rd50" src="../images/resource/acti-thmb2.jpg" alt="" />
+                                    <div class="usr-innr">
+                                        <h5>
+                                            <a href="#" title="">Katti Smith</a>
+                                        </h5>
+                                        <span>Graphic Designer</span>
+                                        <a class="green-bg brd-rd5" href="#" title="">
+                                            <i class="fa fa-envelope"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="usr">
+                                    <img class="brd-rd50" src="../images/resource/acti-thmb3.jpg" alt="" />
+                                    <div class="usr-innr">
+                                        <h5>
+                                            <a href="#" title="">Willimes Domson</a>
+                                        </h5>
+                                        <span>Family Adviser</span>
+                                        <a class="green-bg brd-rd5" href="#" title="">
+                                            <i class="fa fa-envelope"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="usr">
+                                    <img class="brd-rd50" src="../images/resource/acti-thmb4.jpg" alt="" />
+                                    <div class="usr-innr">
+                                        <h5>
+                                            <a href="#" title="">Holli Doe</a>
+                                        </h5>
+                                        <span>Company CEO</span>
+                                        <a class="green-bg brd-rd5" href="#" title="">
+                                            <i class="fa fa-envelope"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="topbar-bottom-colors">
+            <i style="background-color: #2c3e50;"></i>
+            <i style="background-color: #9857b2;"></i>
+            <i style="background-color: #2c81ba;"></i>
+            <i style="background-color: #5dc12e;"></i>
+            <i style="background-color: #feb506;"></i>
+            <i style="background-color: #e17c21;"></i>
+            <i style="background-color: #bc382a;"></i>
+        </div>
+    </div>
