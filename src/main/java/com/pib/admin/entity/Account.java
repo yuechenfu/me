@@ -17,7 +17,6 @@ public class Account implements Serializable, NotNullObject {
     private String email;
     private String username;
     private String nickname;
-    @JsonIgnore
     private String password; 
     private String phone;
     private String company;

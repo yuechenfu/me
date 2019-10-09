@@ -63,8 +63,8 @@ public class AccountServiceImpl implements AccountService {
   
     @Override
     public Account findByLogin(Account e) {
-        e.md5Password(); 
-        Account result = dao.findByEmailAndPassword(e); 
+        e.md5Password();  
+        Account result = dao.findByUsernameAndPassword(e); 
         return result != null ? result : Account.NULL;
     }
 

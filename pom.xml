@@ -11,12 +11,12 @@
 	<groupId>com.pib.admin</groupId>
 	<artifactId>propertyAdmin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>talentscamp</name>
+	<name>propertyAdmin</name>
 	<packaging>war</packaging>
 	<description>Demo project for Spring Boot</description>
    <!-- 本地开发与服务器要确保一致 -->
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 		 <dependency>
@@ -188,6 +188,7 @@
             <artifactId>JustAuth</artifactId>
             <version>1.11.0</version>
      </dependency>
+
      
       <!-- JustAuth1.9.4版本后，如果需要使用支付宝登录，需要单独引用该依赖 -->
         <dependency>

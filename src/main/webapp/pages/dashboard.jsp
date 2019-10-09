@@ -28,9 +28,9 @@
 
 <body class="expand-data panel-data">
     <!-- Topbar -->
-    <%@include file="header.html"%>
+    <%@include file="header.jsp"%>
     <!-- Side Header -->
-    <%@include file="left.html"%>
+    <%@include file="left.jsp"%>
 
     
     <!-- Options Panel -->
