@@ -58,7 +58,7 @@
             <input class="brd-rd5" type="text" name="company" value="${Agent.company }" placeholder="Company Name*" />
           </div>
           <div class="col-md-6 col-sm-6 col-lg-6">
-            <input class="brd-rd5" type="text" name="location" value="${Agent.location }" placeholder="Street Address*" />
+            <input class="brd-rd5" type="text" name="phone" value="${Agent.phone }" placeholder="Phone*" />
           </div>
           <div class="col-md-6 col-sm-6 col-lg-6">
             <input class="brd-rd5" type="text" name="city" value="${Agent.city }" placeholder="Town/City*" />

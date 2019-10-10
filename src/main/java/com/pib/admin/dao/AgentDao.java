@@ -13,8 +13,8 @@ import com.pib.admin.entity.Agent;
 @Repository
 @Mapper
 public interface AgentDao {
-    @Insert("insert into agent(email, firstname, lastname, password, phone, company, location, gender, photo,photourl, aboutme, city, state, postcode,  createAt, updateAt) "+
-           " values(#{email},  #{firstname}, #{lastname}, #{password}, #{phone}, #{company}, #{location}, #{gender}, #{photo}, #{photoUrl}, #{aboutme} , #{city}, #{state},  #{postcode},  #{createAt}, #{updateAt})")
+    @Insert("insert into agent(email, firstname, lastname, password, phone, company, location, gender, photo,photourl, aboutme, city, state, postcode, overview, createAt, updateAt) "+
+           " values(#{email},  #{firstname}, #{lastname}, #{password}, #{phone}, #{company}, #{location}, #{gender}, #{photo}, #{photoUrl}, #{aboutme} , #{city}, #{state},  #{postcode},#{overview},  #{createAt}, #{updateAt})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int save(Agent e);
 
@@ -59,6 +59,7 @@ public interface AgentDao {
                 if (e.getPhotoUrl() != null) SET("photourl=#{photoUrl}");
                 if (e.getGender() != null) SET("gender=#{gender}");
                 if (e.getCity() != null) SET("city=#{city}");
+                if (e.getOverview() != null) SET("overview=#{overview}");
                 if (e.getState() != null) SET("state=#{state}");
                 if (e.getPostcode() != null) SET("postcode=#{postcode}");
                 SET("updateAt=#{updateAt}");

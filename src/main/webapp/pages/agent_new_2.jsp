@@ -45,7 +45,10 @@
         <div class="row mrg20">
           <input type="hidden" name="id" value ="${Agent.id }">
           <div class="col-md-12 col-sm-12 col-lg-12">
-            <textarea class="brd-rd5" placeholder="Enter your keyword" name="aboutme" >${Agent.aboutme }</textarea>
+                    <input class="brd-rd5" type="text" name="overview" placeholder="simple description" />
+           </div>
+          <div class="col-md-12 col-sm-12 col-lg-12">
+            <textarea class="brd-rd5" placeholder="Enter your detail information , tell the customer something about you !" name="aboutme" >${Agent.aboutme }</textarea>
           </div>
           <div class="col-md-6 col-sm-6 col-lg-2">
               <button class="green-bg brd-rd6" type="button" id="pre_button">

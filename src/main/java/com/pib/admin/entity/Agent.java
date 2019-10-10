@@ -28,6 +28,7 @@ public class Agent implements Serializable, NotNullObject {
     private String photoUrl;
     private byte[] photo;
     private String remark;
+    private String overview;
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
 
@@ -168,6 +169,14 @@ public class Agent implements Serializable, NotNullObject {
  
 
 
+
+	public String getOverview() {
+		return overview;
+	}
+
+	public void setOverview(String overview) {
+		this.overview = overview;
+	}
 
 	public String getAboutme() {
 		return aboutme;
