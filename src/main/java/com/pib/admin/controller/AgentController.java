@@ -102,10 +102,11 @@ public class AgentController {
    }
    
    @GetMapping("/edit")
-   public ModelAndView edit(@RequestParam(value = "currentPage",required = false,defaultValue = "1") int currentPage,
-				@RequestParam(value = "rows",required = false,defaultValue = Const.ROWS) int rows) {
+   public ModelAndView edit(HttpServletRequest request,@RequestParam(value = "currentPage",required = false,defaultValue = "1") int currentPage,
+				@RequestParam(value = "rows",required = false,defaultValue = Const.ROWS) int rows) throws Exception{
 	   ModelAndView mode = new ModelAndView();
 	   List<Agent> list = service.find((currentPage-1) * rows ,rows);
+	   putImageToLocal(list,request);
 	   mode.addObject("Pagination", PageUtils.createPagination(currentPage,rows, service.count()));
 	   mode.addObject("agentList", list);
 	   mode.setViewName("pages/agent_edit");
@@ -123,10 +124,11 @@ public class AgentController {
    }
    
    @GetMapping("/delete")
-   public ModelAndView delete(@RequestParam(value = "currentPage",required = false,defaultValue = "1") int currentPage,
-				@RequestParam(value = "rows",required = false,defaultValue = Const.ROWS) int rows) {
+   public ModelAndView delete(HttpServletRequest request,@RequestParam(value = "currentPage",required = false,defaultValue = "1") int currentPage,
+				@RequestParam(value = "rows",required = false,defaultValue = Const.ROWS) int rows)throws Exception {
 	   ModelAndView mode = new ModelAndView();
 	   List<Agent> list = service.find((currentPage-1) * rows ,rows);
+	   putImageToLocal(list,request);
 	   mode.addObject("Pagination", PageUtils.createPagination(currentPage,rows, service.count()));
 	   mode.addObject("agentList", list);
 	   mode.setViewName("pages/agent_delete");

@@ -7,14 +7,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller(value = "AdminController")
-@RequestMapping({"/admin"})
+@RequestMapping({"/index"})
 public class AdminController {
-	
    @GetMapping("")
    public ModelAndView index() {
-       return new ModelAndView("pages/dashboard");
+	   ModelAndView model = new ModelAndView();
+		model.setViewName("pages/dashboard");
+		return model;
    }
 
-   
-   
 }

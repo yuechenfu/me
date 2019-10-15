@@ -49,7 +49,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Id</th>
+                        <th>Photo</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Phone</th>
@@ -59,8 +59,8 @@
                 <tbody>
                   <c:forEach var="agent" items="${agentList}" varStatus="status">
                     <tr>
-                        <td><a href ="/agent/update?id=${agent.id }" ><i class="fa fa-pencil-square-o"></i></a></td>
-                        <td><a href="/agent/detail?id=${agent.id }">${agent.id }</a></td>
+                        <td><a href ="${pageContext.request.contextPath }/agent/update?id=${agent.id }" ><i class="fa fa-pencil-square-o"></i></a></td>
+                        <td><a href="${pageContext.request.contextPath }/agent/detail?id=${agent.id }"><img src="../${agent.photoUrl }" width="40px" height="40px"></a></td>
                         <td>${agent.firstname }</td>
                         <td>${agent.lastname }</td>
                         <td>${agent.phone }</td>
@@ -76,11 +76,11 @@
 	        <div class="pgntn style2">
 	          <ul class="pgntn-lst">
 	            <li>
-	              <a href="/agent/list?currentPage=${Pagination.fristPage }" title="" id="page" >${Pagination.fristPage }</a>
+	              <a href="${pageContext.request.contextPath }/agent/list?currentPage=${Pagination.fristPage }" title="" id="page" >${Pagination.fristPage }</a>
 	            </li>
 	            <c:forEach var="p"  begin="${Pagination.rangeMin }" end="${Pagination.rangeMax }">
 	              <li>
-	              <a href="/agent/list?currentPage=${p}" title="" id="page" >${p}</a>
+	              <a href="${pageContext.request.contextPath }/agent/list?currentPage=${p}" title="" id="page" >${p}</a>
 	            </li>
 	            </c:forEach>
 	          </ul>

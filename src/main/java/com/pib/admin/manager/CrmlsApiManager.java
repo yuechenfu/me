@@ -30,11 +30,9 @@ import java.util.Map;
 @Component
 public class CrmlsApiManager {
 
-	
-	@Value("${api.root.url}") 
+	 
 	private String rootUrl;
 	
-	@Value("${api.maxRecordLimit}") 
 	private int maxRecordLimit;
 	
 	

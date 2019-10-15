@@ -42,6 +42,7 @@
     </div>
     <!-- Page Top -->
     <div class="panel-content">
+      
         <div class="widget pad50-65">
             <table class="table table-inverse">
                 <thead>
@@ -56,7 +57,7 @@
                 <tbody>
                   <c:forEach var="agent" items="${agentList}" varStatus="status">
                     <tr>
-                        <th scope="row"><a href="/agent/detail?id=${agent.id }" ><img src="../${agent.photoUrl }" width="40px" height="40px"></a></th>
+                        <th scope="row"><a href="${pageContext.request.contextPath }/agent/detail?id=${agent.id }" ><img src="../${agent.photoUrl }" width="40px" height="40px"></a></th>
                         <td>${agent.firstname }</td>
                         <td>${agent.lastname }</td>
                         <td>${agent.phone }</td>
@@ -72,11 +73,11 @@
 	        <div class="pgntn style2">
 	          <ul class="pgntn-lst">
 	            <li>
-	              <a href="/agent/list?currentPage=${Pagination.fristPage }" title="" id="page" >${Pagination.fristPage }</a>
+	              <a href="${pageContext.request.contextPath }/agent/list?currentPage=${Pagination.fristPage }" title="" id="page" >${Pagination.fristPage }</a>
 	            </li>
 	            <c:forEach var="p"  begin="${Pagination.rangeMin }" end="${Pagination.rangeMax }">
 	              <li>
-	              <a href="/agent/list?currentPage=${p}" title="" id="page" >${p}</a>
+	              <a href="${pageContext.request.contextPath }/agent/list?currentPage=${p}" title="" id="page" >${p}</a>
 	            </li>
 	            </c:forEach>
 	          </ul>

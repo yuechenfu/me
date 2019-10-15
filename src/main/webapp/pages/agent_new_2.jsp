@@ -41,7 +41,7 @@
 
   <div class="panel-content">
     <div class="widget pad50-65">
-      <form class="contact-form" action="/agent/save" method="post">
+      <form class="contact-form" action="${pageContext.request.contextPath }/agent/save" method="post">
         <div class="row mrg20">
           <input type="hidden" name="id" value ="${Agent.id }">
           <div class="col-md-12 col-sm-12 col-lg-12">

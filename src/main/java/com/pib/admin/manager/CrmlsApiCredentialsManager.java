@@ -34,13 +34,10 @@ import java.util.List;
 @Component
 public class CrmlsApiCredentialsManager {
 
-    @Value("${api.client.id}") 
     private String clientId ;
 	
-	@Value("${api.client.secret}") 
 	private String clientSecret;
 	
-	@Value("${api.root.tokenUrl}") 
 	private String tokenUrl;
 	
 

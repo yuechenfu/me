@@ -46,7 +46,7 @@
       <div class="rmv-ext6">
         <div class="row mrg20">
           <div class="col-md-4 col-sm-6 col-lg-4">
-           <a href="/agent/add">
+           <a href="${pageContext.request.contextPath }/agent/add">
             <div class="serv-bx styl1 brd-rd5 text-center">
               <i class="brd-rd50 badge-warning fa fa-cubes"></i>
               <div class="serv-inf">
@@ -58,7 +58,7 @@
             </a>
           </div>
           <div class="col-md-4 col-sm-6 col-lg-4">
-          <a href="/agent/edit" >
+          <a href="${pageContext.request.contextPath }/agent/edit" >
             <div class="serv-bx styl1 brd-rd5 text-center">
               <i class="brd-rd50 badge-success fa fa-magnet"></i>
               <div class="serv-inf">
@@ -70,7 +70,7 @@
             </a>
           </div>
           <div class="col-md-4 col-sm-6 col-lg-4">
-          <a href="/agent/delete"  >
+          <a href="${pageContext.request.contextPath }/agent/delete"  >
             <div class="serv-bx styl1 brd-rd5 text-center">
               <i class="brd-rd50 badge-info fa fa-diamond"></i>
               <div class="serv-inf">

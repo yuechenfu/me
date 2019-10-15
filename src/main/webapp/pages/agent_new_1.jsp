@@ -46,7 +46,7 @@
        <div class="alert alert-danger"><strong>Oh snap!</strong> ${msg }</div>
       </c:if>
     <div class="widget pad50-65">
-      <form class="form-wrp" action="/agent/insert" enctype="multipart/form-data" method="POST">
+      <form class="form-wrp" action="${pageContext.request.contextPath }/agent/insert" enctype="multipart/form-data" method="POST">
         <div class="row mrg20">
           <div class="col-md-6 col-sm-6 col-lg-6">
             <input class="brd-rd5" type="text" name="firstname" value="${Agent.firstname }" placeholder="First Name*" />
@@ -102,7 +102,11 @@
               </div>
             </div>
           </div>
-          <div class="col-md-12 col-sm-12 col-lg-12">
+          <div class="col-md-6 col-sm-6 col-lg-2">
+              <button class="green-bg brd-rd6" type="button" id="pre_button">
+              <i class="ti-arrow-top-left"></i> Back</button>
+          </div>
+          <div class="col-md-6 col-sm-6 col-lg-10">
             <button class="green-bg brd-rd5" type="submit">
               <i class="fa fa-paper-plane"></i> Next</button>
           </div>
@@ -143,5 +147,11 @@
     <script src="../js/styleswitcher.js" type="text/javascript"></script>
     <script src="../js/main.js" type="text/javascript"></script>
 </body>
-
+<script>
+$(document).ready(function(){
+	  $("#pre_button").click(function(){ 
+		  history.go(-1);
+	  });
+});	
+</script>
 </html>

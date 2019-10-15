@@ -13,7 +13,7 @@
                     </a>
                     <ul class="sb-drp">
                         <li>
-                            <a href="/admin" title="">Home Page</a>
+                            <a href="${pageContext.request.contextPath }/index/" title="">Home Page</a>
                         </li>
     
                         
@@ -29,10 +29,10 @@
                     </a>
                     <ul class="sb-drp">
                         <li>
-                            <a href="/agent/list" title="">Agent list</a>
+                            <a href="${pageContext.request.contextPath }/agent/list" title="">Agent list</a>
                         </li>
                         <li>
-                            <a href="/agent/management" title="">Agent managent</a>
+                            <a href="${pageContext.request.contextPath }/agent/management" title="">Agent managent</a>
                         </li>
                         
                     </ul>

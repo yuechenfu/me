@@ -53,23 +53,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
+			<scope>true</scope>
 			<optional>true</optional>
 		</dependency>
-		
-		<!-- Spring Boot JDBC --> 
-		<dependency> 
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
-		</dependency>
-		<!-- oracle -->
-         <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>11.2.0.1.0</version>
-         </dependency>
-		
-		
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -188,7 +175,6 @@
             <artifactId>JustAuth</artifactId>
             <version>1.11.0</version>
      </dependency>
-
      
       <!-- JustAuth1.9.4版本后，如果需要使用支付宝登录，需要单独引用该依赖 -->
         <dependency>
@@ -214,7 +200,4 @@
    			 
 		</plugins>
 	</build>
-  
- 
-
 </project>
