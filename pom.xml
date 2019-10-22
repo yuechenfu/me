@@ -8,10 +8,10 @@
         <version>2.1.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-	<groupId>com.pib.admin</groupId>
-	<artifactId>propertyAdmin</artifactId>
+	<groupId>com.admin</groupId>
+	<artifactId>me</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>propertyAdmin</name>
+	<name>me</name>
 	<packaging>war</packaging>
 	<description>Demo project for Spring Boot</description>
    <!-- 本地开发与服务器要确保一致 -->

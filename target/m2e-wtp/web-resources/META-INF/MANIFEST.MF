@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Built-By: Front Desk 2
 Build-Jdk: 11.0.3
-Implementation-Title: propertyAdmin
+Implementation-Title: me
 Implementation-Version: 0.0.1-SNAPSHOT
-Implementation-Vendor-Id: com.pib.admin
+Implementation-Vendor-Id: com.admin
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
- -starter-parent/propertyAdmin
+ -starter-parent/me
 Created-By: Maven Integration for Eclipse
 

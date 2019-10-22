@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.pib.admin.util.EmailUtil;
+import com.admin.util.EmailUtil;
   
 
 @SpringBootTest
