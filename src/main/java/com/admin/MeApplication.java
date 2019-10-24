@@ -36,7 +36,7 @@ public class MeApplication extends SpringBootServletInitializer implements Appli
     }
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        System.out.println("starting ： http://localhost:" + port+"/admin");
+        System.out.println("starting ： http://localhost:" + port);
     }
     
     public static void main (String[] args) {

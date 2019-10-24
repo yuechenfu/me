@@ -17,12 +17,12 @@ $(function() {
                 firstName = name.split(' ').slice(0, -1).join(' ');
             }
             $.ajax({
-                url: "././mail/contact_me.php",
+                url: "/email/me",
                 type: "POST",
                 data: {
-                    name: name,
-                    email: email,
-                    message: message
+                    username: name,
+                    email:  email,
+                    remark: message
                 },
                 cache: false,
                 success: function() {

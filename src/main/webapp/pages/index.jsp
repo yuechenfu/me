@@ -69,8 +69,7 @@
           <li> <a class="page-scroll" href="#about">About</a> </li>
           <li> <a class="page-scroll" href="#skills">Skills</a> </li>
           <li> <a class="page-scroll" href="#portfolio">Portfolio</a> </li>
-          <li> <a class="page-scroll" href="#testimonials">Testimonials</a> </li>
-          <li> <a class="page-scroll" href="#testimonials">Resource</a> </li>
+          <li> <a class="page-scroll" href="#testimonials">Resources</a> </li>
           <li> <a class="page-scroll" href="#contact">Contact</a> </li>
         </ul>
       </div>
@@ -252,7 +251,7 @@
 <div id="testimonials" class="text-center">
   <div class="container">
     <div class="section-title center">
-      <h2>Testimonials</h2>
+      <h2>Resources</h2>
       <hr>
     </div>
     <div class="row">
@@ -260,28 +259,28 @@
         <div class="row testimonials">
           <div class="col-sm-4">
             <blockquote><i class="fa fa-quote-left"></i>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitduis sed dapibus leo nec ornare.</p>
+              <p>Best before ,what's on the back of the pack.</p>
               <div class="clients-name">
-                <p><strong>John Doe</strong><br>
-                  <em>CEO, Company Inc.</em></p>
+                <p><strong><a href="http://bestbefore.ro" target="_black">bestbefore.ro</strong><br>
+                  <em>Slide, fade out, Ajax, navigation</em></p>
               </div>
             </blockquote>
           </div>
           <div class="col-sm-4">
             <blockquote><i class="fa fa-quote-left"></i>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitduis sed dapibus leo nec ornare.</p>
+              <p>The entire IconDock family of icons . Use it on any number of projects, whether personal, commercial, for a client project, or design templates..</p>
               <div class="clients-name">
-                <p><strong>Jane Doe</strong><br>
-                  <em>CEO, Company Inc.</em></p>
+                <p><strong><a href="http://icondock.com" target="_black">icondock.com</a></strong><br>
+                  <em>ICON&DOCK</em></p>
               </div>
             </blockquote>
           </div>
           <div class="col-sm-4">
             <blockquote><i class="fa fa-quote-left"></i>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitduis sed dapibus leo nec ornare.</p>
+              <p>DIV+CSS template, Wordpress theme template, CSS Menu and other practical resources, all resources in the station are for learning and reference only.</p>
               <div class="clients-name">
-                <p><strong>Chris Smith</strong><br>
-                  <em>CEO, Company Inc.</em></p>
+                <p><strong><a href="http://www.cssmoban.com" target="_black">www.cssmoban.com</a></strong><br>
+                  <em>Jquery . Templates</em></p>
               </div>
             </blockquote>
           </div>
@@ -303,7 +302,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <input type="text" id="name" class="form-control" placeholder="Name" required="required">
+                <input type="text" id="name"   class="form-control" placeholder="Name" required="required">
                 <p class="help-block text-danger"></p>
               </div>
             </div>
@@ -315,7 +314,7 @@
             </div>
           </div>
           <div class="form-group">
-            <textarea name="message" id="message" class="form-control" rows="4" placeholder="Message" required></textarea>
+            <textarea name="remark" id="message" class="form-control" rows="4" placeholder="Message" required></textarea>
             <p class="help-block text-danger"></p>
           </div>
           <div id="success"></div>
