@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller(value = "AdminController")
 public class AdminController {
-   @GetMapping("")
+   @GetMapping("/profile")
    public ModelAndView index() {
 	   ModelAndView model = new ModelAndView();
 		model.setViewName("pages/index");

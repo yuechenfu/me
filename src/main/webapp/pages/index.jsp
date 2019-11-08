@@ -142,7 +142,7 @@
       <div class="portfolio-items">
         <div class="col-sm-6 col-md-3 col-lg-3 web">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="http://www.tenedger.com/property/pages/index.jsp" title="Buy / sell house "  target="_blank" >
+            <div class="hover-bg"> <a href="http://www.gitib.com/property/pages/index.jsp" title="Buy / sell house "  target="_blank" >
               <div class="hover-text">
                 <h4>Real estate web site</h4>
                 <small>Web Design</small> </div>
@@ -151,7 +151,7 @@
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 app">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="http://www.tenedger.com/recurit/index/" title="Seeking or hire job" target="_blank" >
+            <div class="hover-bg"> <a href="http://www.gitib.com/recurit/index/" title="Seeking or hire job" target="_blank" >
               <div class="hover-text">
                 <h4>Recurit web site</h4>
                 <small>Web Design</small> </div>
@@ -160,7 +160,7 @@
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 web">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="http://www.tenedger.com/etrade/index/" title="invoke etrade api" target="_blank">
+            <div class="hover-bg"> <a href="http://www.gitib.com/etrade/index/" title="invoke etrade api" target="_blank">
               <div class="hover-text">
                 <h4>Etrade API</h4>
                 <small>Web Design</small> </div>
@@ -169,7 +169,7 @@
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 web">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="http://www.tenedger.com/edu/index.html" title="education"  target="_blank" >
+            <div class="hover-bg"> <a href="http://www.gitib.com/edu/index.html" title="education"  target="_blank" >
               <div class="hover-text">
                 <h4>Edu web site</h4>
                 <small>Web Design</small> </div>
@@ -178,7 +178,7 @@
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 app">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="http://www.tenedger.com/foodOne/index.html" title="restaurant reservation" target="_blank">
+            <div class="hover-bg"> <a href="http://www.gitib.com/foodOne/index.html" title="restaurant reservation" target="_blank">
               <div class="hover-text">
                 <h4>Restaurant reservation</h4>
                 <small>App Development</small> </div>
@@ -187,7 +187,7 @@
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 branding">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="http://www.tenedger.com/foodTwo/index.html" title="Restaurant Online order" target="_blank">
+            <div class="hover-bg"> <a href="http://www.gitib.com/foodTwo/index.html" title="Restaurant Online order" target="_blank">
               <div class="hover-text">
                 <h4>Restaurant Online order</h4>
                 <small>Web Design</small> </div>
@@ -196,16 +196,16 @@
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 branding app">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="http://www.tenedger.com/back-end/index.html" title="Back management system" target="_blank">
+            <div class="hover-bg"> <a href="http://www.gitib.com/back-end/index.html" title="Back management system" target="_blank">
               <div class="hover-text">
                 <h4>Backend management system</h4>
                 <small>Web Design</small> </div>
-              <img src="./img/portfolio/project-management.png" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="../img/portfolio/project-management.png" class="img-responsive" alt="Project Title"> </a> </div>
           </div>
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 web">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="http://www.tenedger.com/examples/index.html" title="Examples " target="_blank">
+            <div class="hover-bg"> <a href="http://www.gitib.com/examples/index.html" title="Examples " target="_blank">
               <div class="hover-text">
                 <h4>Examples programer</h4>
                 <small>Web Design</small> </div>
@@ -214,7 +214,7 @@
         </div>
         <div class="col-sm-6 col-md-3 col-lg-3 web">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="http://www.tenedger.com/kaitlyn/index.html" title="Examples " target="_blank">
+            <div class="hover-bg"> <a href="http://www.gitib.com/" title="Examples " target="_blank">
               <div class="hover-text">
                 <h4>E-commerice programer</h4>
                 <small>Web Design</small> </div>
