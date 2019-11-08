@@ -11,7 +11,7 @@ public class AdminController {
    @GetMapping("/profile")
    public ModelAndView index() {
 	   ModelAndView model = new ModelAndView();
-		model.setViewName("pages/index");
+		model.setViewName("/pages/index");
 		return model;
    }
 
